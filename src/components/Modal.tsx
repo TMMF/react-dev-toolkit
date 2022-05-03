@@ -37,7 +37,7 @@ const Styled = {
   `,
   Modal: styled.div`
     background-color: white;
-    padding: 32px;
+    padding: 24px;
     border-radius: 4px;
     ${elevatedContainer("rgba(0, 0, 0, 0.05)")};
   `,
