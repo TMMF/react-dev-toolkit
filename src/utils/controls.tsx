@@ -32,6 +32,19 @@ export const StringControl: ControlComponent<string> = (props) => {
   return <Styled.Input type="text" value={value ?? ""} onChange={_onChange} />
 }
 
+// TODO: allow for default number instead of undefined
+export const NumberControl: ControlComponent<number | undefined> = (props) => {
+  const { value, onChange } = props
+
+  const _onChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      onChange(e.target.value ? Number(e.target.value) : undefined),
+    [onChange],
+  )
+
+  return <Styled.Input type="number" value={value ?? ""} onChange={_onChange} />
+}
+
 /*
 IDEA:
 GroupControl({
@@ -40,16 +53,39 @@ GroupControl({
 }) -> GroupedField with each of the controls within it auto-organized
  */
 
+export enum FieldSize {
+  Small = "small",
+  Medium = "medium",
+  Large = "large",
+}
+
 export type Options = {
   title: string
   description?: string
   control: ControlComponent
   validation?: undefined // yup?
+  size?: FieldSize
 }
 
 export type Control = Omit<Options, "control"> & {
   $$id: string
   control: React.ComponentType
+  size: FieldSize
+}
+
+const getSize = (component: ControlComponent, size?: FieldSize): FieldSize => {
+  if (size != null) {
+    return size
+  }
+
+  // Defaults
+  if (component === StringControl) {
+    return FieldSize.Medium
+  } else if (component === NumberControl) {
+    return FieldSize.Small
+  } else {
+    return FieldSize.Small
+  }
 }
 
 export const dev = (options: Options) => {
@@ -67,10 +103,13 @@ export const dev = (options: Options) => {
     return <options.control value={field.value} onChange={onChange} />
   })
 
+  const size = getSize(options.control, options.size)
+
   const result = {
     ...options,
     $$id: id,
     control: ControlWrapper,
+    size,
   }
 
   useStore.setState((state) => ({
@@ -82,6 +121,7 @@ export const dev = (options: Options) => {
     },
   }))
 
+  // TODO: the typed value here should extend from the type that the control allows
   return <Value extends unknown>(value: Value) => {
     const [field] = useField<Value>(id)
     return field?.activated ? field.value : value

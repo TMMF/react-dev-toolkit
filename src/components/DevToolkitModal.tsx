@@ -5,6 +5,7 @@ import { useIds, useField } from "../utils/state"
 import Modal from "../atoms/Modal"
 import IconButton from "../atoms/IconButton"
 import { SunIcon, CloseIcon, HelpIcon } from "../atoms/Icons"
+import { FieldSize } from "../utils/controls"
 
 const Styled = {
   TitleBar: styled.div`
@@ -30,7 +31,7 @@ const Styled = {
 
   Fields: styled.div`
     display: grid;
-    grid-template-columns: repeat(2, 150px);
+    grid-template-columns: repeat(3, 150px);
     grid-auto-rows: minmax(30px, auto);
     gap: 16px;
   `,
@@ -62,20 +63,24 @@ const Styled = {
   // ---
   GroupedField: styled.div`
     border: 1px solid red;
-    grid-column: 1 / 3;
+    grid-column: 1 / 4;
 
     /* TODO: Combine with Fields css above */
     display: grid;
-    grid-template-columns: repeat(2, 150px);
+    grid-template-columns: repeat(3, 150px);
     grid-auto-rows: minmax(30px, auto);
     gap: 16px;
   `,
-  NarrowField: styled.div`
+  SmallField: styled.div`
     border: 1px solid blue;
   `,
-  WideField: styled.div`
+  MediumField: styled.div`
     border: 1px solid blue;
     grid-column: 1 / 3;
+  `,
+  LargeField: styled.div`
+    border: 1px solid blue;
+    grid-column: 1 / 4;
   `,
 }
 
@@ -92,8 +97,12 @@ const DevModalComponent = (props: { id: string }) => {
   // TODO
   let description = "a"
 
-  let wide = true
-  const Field = wide ? Styled.WideField : Styled.NarrowField
+  const Field =
+    field.size === FieldSize.Large
+      ? Styled.LargeField
+      : field.size === FieldSize.Medium
+      ? Styled.MediumField
+      : Styled.SmallField
 
   return (
     <Field>
@@ -141,15 +150,15 @@ const DevModal = (props: Props) => {
       </Styled.TitleBar>
 
       <Styled.Fields>
-        <Styled.WideField />
-        <Styled.WideField />
-        <Styled.NarrowField />
-        <Styled.NarrowField />
-        <Styled.WideField />
+        <Styled.MediumField />
+        <Styled.LargeField />
+        <Styled.SmallField />
+        <Styled.SmallField />
+        <Styled.LargeField />
         <Styled.GroupedField>
-          <Styled.WideField />
-          <Styled.NarrowField />
-          <Styled.NarrowField />
+          <Styled.LargeField />
+          <Styled.SmallField />
+          <Styled.SmallField />
         </Styled.GroupedField>
 
         {ids.map((id) => (
