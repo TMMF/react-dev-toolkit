@@ -1,39 +1,28 @@
 import * as React from "react"
-import { useDevValue, DevModal } from "@TMMF/react-dev-toolkit"
+import {
+  useDevValue,
+  DevModal,
+  control,
+  StringControl,
+} from "@TMMF/react-dev-toolkit"
 
-import { useDebugField } from "../../src/state"
+const testControl1 = control({
+  title: "Test Title Value 1",
+  description: "This is a test description to explain this component",
+  control: StringControl,
+  validation: undefined,
+})
 
-const TestControl = () => {
-  const [field, updateField] = useDebugField("Test-Field")
-  return (
-    <input
-      type="text"
-      onChange={(e) => {
-        updateField({ value: e.target.value })
-      }}
-    />
-  )
-}
-TestControl.$$id = "Test-Field"
-
-const TestControl2 = () => {
-  const [field, updateField] = useDebugField("Test-Field2")
-  return (
-    <input
-      type="text"
-      onChange={(e) => {
-        updateField({ value: e.target.value })
-      }}
-    />
-  )
-}
-TestControl2.$$id = "Test-Field2"
+const testControl2 = control({
+  title: "Test Title Value 2",
+  control: StringControl,
+  validation: undefined,
+})
 
 const Component = () => {
-  const value1 = useDevValue(() => "Original Value 1", TestControl)
-  const value2 = useDevValue(() => "Original Value 2", TestControl)
-  const value3 = useDevValue(() => "Original Value 3", TestControl2)
-  console.log(Component.name)
+  const value1 = useDevValue(() => "Original Value 1", testControl1)
+  const value2 = useDevValue(() => "Original Value 2", testControl1)
+  const value3 = useDevValue(() => "Original Value 3", testControl2)
 
   return (
     <>

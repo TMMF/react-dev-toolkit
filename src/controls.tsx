@@ -1,22 +1,11 @@
 import * as React from "react"
+import styled from "styled-components"
 import { useDebugField } from "./state"
 
-const newControl = () => {
-  const id = "Test-Field"
-
-  const TestControl = () => {
-    const [field, updateField] = useDebugField<string>(id)
-    const onChange = React.useCallback(
-      (e: React.ChangeEvent<HTMLInputElement>) =>
-        updateField({ value: e.target.value }),
-      [updateField],
-    )
-
-    return <input type="text" value={field?.value} onChange={onChange} />
-  }
-  TestControl.$$id = id
-
-  return TestControl
+const Styled = {
+  Input: styled.input`
+    width: 100%;
+  `,
 }
 
 /**
@@ -27,39 +16,60 @@ const newControl = () => {
  * - Checkbox Input
  */
 
-type ControlComponent = React.ComponentType<{ id: string }>
+type ControlComponent<Value = any> = React.ComponentType<{
+  value: Value
+  onChange: (value: Value) => void
+}>
 
-const StringControl: ControlComponent = (props) => {
-  const [field, updateField] = useDebugField<string>(props.id)
+export const StringControl: ControlComponent<string> = (props) => {
+  const { value, onChange } = props
 
-  const onChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      updateField({ value: e.target.value }),
-    [updateField],
+  const _onChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value),
+    [onChange],
   )
 
-  return <input type="text" value={field.value} onChange={onChange} />
+  return <Styled.Input type="text" value={value ?? ""} onChange={_onChange} />
 }
 
-type Options = {
+/*
+IDEA:
+GroupControl({
+  fieldName: StringControl(validationOptions),
+  ...
+}) -> GroupedField with each of the controls within it auto-organized
+ */
+
+export type Options = {
   title: string
   description?: string
   control: ControlComponent
   validation?: undefined // yup?
 }
 
-type Control = Options & {
+export type Control = Omit<Options, "control"> & {
   $$id: string
+  control: React.ComponentType
 }
 
 export const control = (options: Options): Control => {
   // TODO: this should probably be a symbol?
   const id = `TODO-generate-fn-${Math.round(Math.random() * 1000)}`
 
+  const ControlWrapper = React.memo(() => {
+    const [field, updateField] = useDebugField(id)
+
+    const onChange = React.useCallback(
+      (value: unknown) => updateField({ value }),
+      [updateField],
+    )
+
+    return <options.control value={field.value} onChange={onChange} />
+  })
+
   return {
-    $$id: id,
     ...options,
+    $$id: id,
+    control: ControlWrapper,
   }
 }
-
-// ---

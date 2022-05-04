@@ -1,10 +1,11 @@
 import * as React from "react"
 import { atom, useAtom, useAtomValue } from "jotai"
+import { Control } from "./controls"
 
 type ControlState<Value extends unknown> = {
   activated: boolean
   value: Value
-  control: React.ComponentType | null
+  control: Control | null
 }
 
 type DebugState = {

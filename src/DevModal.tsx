@@ -111,7 +111,7 @@ const DevModalComponent = (props: { id: string }) => {
         {description ? <Styled.FieldHelp /> : null}
       </Styled.FieldHeader>
       <Styled.FieldControl>
-        {field && field.control ? <field.control /> : null}
+        {field && field.control ? <field.control.control /> : null}
       </Styled.FieldControl>
     </Field>
   )
@@ -146,7 +146,7 @@ const DevModal = (props: Props) => {
         </Styled.GroupedField>
 
         {ids.map((id) => (
-          <DevModalComponent id={id} />
+          <DevModalComponent key={id} id={id} />
         ))}
       </Styled.Fields>
     </Modal>
