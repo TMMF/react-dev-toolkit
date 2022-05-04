@@ -1,7 +1,7 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom/client"
 
-import Component from "./component"
+import Root from "./Root"
 
 const rootElement = document.querySelector("#root")
 if (rootElement == null) {
@@ -9,4 +9,4 @@ if (rootElement == null) {
 }
 
 const root = ReactDOM.createRoot(rootElement)
-root.render(<Component />)
+root.render(<Root />)

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { DevModal, dev, StringControl } from "@TMMF/react-dev-toolkit"
+import { dev, StringControl } from "@TMMF/react-dev-toolkit"
 
 const useDevField1 = dev({
   title: "Test Title Value 1",
@@ -24,7 +24,6 @@ const Component = () => {
       <p>Value 1a: {value1}</p>
       <p>Value 1b: {value2}</p>
       <p>Value 2: {value3}</p>
-      <DevModal />
     </>
   )
 }

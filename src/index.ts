@@ -1,5 +1,6 @@
-export { default as DevModal } from "./DevModal"
-export * from "./controls"
+export { default as DevToolkitModal } from "./components/DevToolkitModal"
+export { default as DevToolkitProvider } from "./components/DevToolkitProvider"
+export * from "./utils/controls"
 
 // TODO: Define a utility function for transforming the data from
 

@@ -1,10 +1,10 @@
 import * as React from "react"
 import styled from "styled-components"
 
-import { useIds, useField } from "./state"
-import Modal from "./components/Modal"
-import IconButton from "./components/IconButton"
-import { SunIcon, CloseIcon, HelpIcon } from "./components/Icons"
+import { useIds, useField } from "../utils/state"
+import Modal from "../atoms/Modal"
+import IconButton from "../atoms/IconButton"
+import { SunIcon, CloseIcon, HelpIcon } from "../atoms/Icons"
 
 const Styled = {
   TitleBar: styled.div`
