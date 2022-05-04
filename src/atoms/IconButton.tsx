@@ -8,6 +8,7 @@ const Styled = {
     padding: 0;
     cursor: pointer;
     color: #999999;
+    transition: color 0.25s;
 
     &:hover {
       color: black;

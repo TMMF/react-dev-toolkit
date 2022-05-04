@@ -1,31 +1,7 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
-import styled, { css } from "styled-components"
-
-// -- Styling Helpers --
-
-const range = (start: number, end: number) => {
-  const res = new Array(end - start)
-  for (let i = 0; i < res.length; i++) {
-    res[i] = start + i
-  }
-  return res
-}
-
-const buildBoxShadow = (color: string) =>
-  range(0, 5)
-    .map((i) => Math.pow(2, i))
-    .map((offset) => `0 ${offset}px ${offset}px ${color}`)
-    .join(", ")
-
-// TODO: define 'elevations' instead of using a direct color
-
-const elevatedContainer = (color: string) => css`
-  box-shadow: ${buildBoxShadow(color)};
-  border: 1px solid ${color};
-`
-
-// -- Styling Helpers --
+import styled from "styled-components"
+import { elevatedContainer } from "../utils/styles"
 
 const Styled = {
   Backdrop: styled.div`

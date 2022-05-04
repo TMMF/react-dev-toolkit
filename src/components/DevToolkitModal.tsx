@@ -79,8 +79,6 @@ const Styled = {
   `,
 }
 
-type Props = {}
-
 const DevModalComponent = (props: { id: string }) => {
   const { id } = props
   const [field, updateField] = useField(id)
@@ -117,7 +115,12 @@ const DevModalComponent = (props: { id: string }) => {
   )
 }
 
+type Props = {
+  onClose: () => void
+}
+
 const DevModal = (props: Props) => {
+  const { onClose } = props
   const ids = useIds()
 
   // TODO: reorder fields based on alphabetical titles?
@@ -129,7 +132,11 @@ const DevModal = (props: Props) => {
         <Styled.Title>Development Toolkit</Styled.Title>
         <Styled.Controls>
           <IconButton Icon={<SunIcon />} aria-label="Light Mode" />
-          <IconButton Icon={<CloseIcon />} aria-label="Close Modal" />
+          <IconButton
+            Icon={<CloseIcon />}
+            onClick={onClose}
+            aria-label="Close Modal"
+          />
         </Styled.Controls>
       </Styled.TitleBar>
 
