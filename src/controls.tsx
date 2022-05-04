@@ -1,6 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
-import { useDebugField } from "./state"
+import { useStore, useDebugField } from "./state"
 
 const Styled = {
   Input: styled.input`
@@ -67,9 +67,20 @@ export const control = (options: Options): Control => {
     return <options.control value={field.value} onChange={onChange} />
   })
 
-  return {
+  const result = {
     ...options,
     $$id: id,
     control: ControlWrapper,
   }
+
+  useStore.setState((state) => ({
+    ...state,
+    [id]: {
+      ...result,
+      activated: false,
+      value: undefined,
+    },
+  }))
+
+  return result
 }

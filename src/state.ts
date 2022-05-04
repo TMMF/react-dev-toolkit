@@ -1,43 +1,32 @@
 import * as React from "react"
-import { atom, useAtom, useAtomValue } from "jotai"
+import create from "zustand"
 import { Control } from "./controls"
 
-type ControlState<Value extends unknown> = {
+type ControlState<Value extends unknown> = Control & {
   activated: boolean
   value: Value
-  control: Control | null
 }
 
 type DebugState = {
-  [key in string]?: ControlState<unknown>
+  [key in string]: ControlState<unknown>
 }
 
-const debugAtom = atom<DebugState>({})
+export const useStore = create<DebugState>(() => ({}))
 
 export const useDebugFieldIds = () => {
-  const debugState = useAtomValue(debugAtom)
-  return React.useMemo(() => Object.keys(debugState), [debugState])
+  const ids = useStore((state) => Object.keys(state))
+  return ids
 }
 
 export const useDebugField = <Value extends unknown>(id: string) => {
-  const [debugState, setDebugState] = useAtom(debugAtom)
+  const field = useStore((state) => state[id])
 
-  const field = debugState[id] as ControlState<Value>
-  const updateField = React.useCallback(
-    (data: Partial<ControlState<Value>>) => {
-      setDebugState((ds) => ({
-        ...ds,
-        [id]: {
-          activated: false,
-          value: undefined as Value,
-          control: null,
-          ...ds[id],
-          ...data,
-        },
-      }))
-    },
-    [],
-  )
+  const updateField = (data: Partial<ControlState<Value>>) => {
+    useStore.setState((state) => ({
+      ...state,
+      [id]: { ...state[id], ...data },
+    }))
+  }
 
   return React.useMemo(
     () => [field, updateField] as const,

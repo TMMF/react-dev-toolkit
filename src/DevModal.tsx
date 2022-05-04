@@ -111,7 +111,7 @@ const DevModalComponent = (props: { id: string }) => {
         {description ? <Styled.FieldHelp /> : null}
       </Styled.FieldHeader>
       <Styled.FieldControl>
-        {field && field.control ? <field.control.control /> : null}
+        {field && field.control ? <field.control /> : null}
       </Styled.FieldControl>
     </Field>
   )

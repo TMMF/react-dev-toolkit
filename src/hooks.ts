@@ -1,5 +1,3 @@
-import * as React from "react"
-
 export { default as Modal } from "./components/Modal"
 import { useDebugField } from "./state"
 import { Control } from "./controls"
@@ -10,11 +8,7 @@ export const useDevValue = <Params extends unknown[], Res>(
   fn: Func<Params, Res>,
   control: Control,
 ) => {
-  const [field, updateField] = useDebugField(control.$$id)
-
-  React.useEffect(() => {
-    updateField({ control })
-  }, [control])
+  const [field] = useDebugField(control.$$id)
 
   if (field?.activated) {
     return () => field.value
