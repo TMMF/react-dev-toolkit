@@ -13,13 +13,13 @@ type DebugState = {
 
 export const useStore = create<DebugState>(() => ({}))
 
-export const useDebugFieldIds = () => {
+export const useIds = () => {
   const ids = useStore((state) => Object.keys(state))
   return ids
 }
 
-export const useDebugField = <Value extends unknown>(id: string) => {
-  const field = useStore((state) => state[id])
+export const useField = <Value extends unknown>(id: string) => {
+  const field = useStore((state) => state[id] as ControlState<Value>)
 
   const updateField = (data: Partial<ControlState<Value>>) => {
     useStore.setState((state) => ({

@@ -1,6 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
-import { useStore, useDebugField } from "./state"
+import { useStore, useField } from "./state"
 
 const Styled = {
   Input: styled.input`
@@ -52,12 +52,12 @@ export type Control = Omit<Options, "control"> & {
   control: React.ComponentType
 }
 
-export const control = (options: Options): Control => {
+export const dev = (options: Options) => {
   // TODO: this should probably be a symbol?
   const id = `TODO-generate-fn-${Math.round(Math.random() * 1000)}`
 
   const ControlWrapper = React.memo(() => {
-    const [field, updateField] = useDebugField(id)
+    const [field, updateField] = useField(id)
 
     const onChange = React.useCallback(
       (value: unknown) => updateField({ value }),
@@ -82,5 +82,8 @@ export const control = (options: Options): Control => {
     },
   }))
 
-  return result
+  return <Value extends unknown>(value: Value) => {
+    const [field] = useField<Value>(id)
+    return field?.activated ? field.value : value
+  }
 }

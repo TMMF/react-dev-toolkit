@@ -1,7 +1,7 @@
 import * as React from "react"
 import styled from "styled-components"
 
-import { useDebugFieldIds, useDebugField } from "./state"
+import { useIds, useField } from "./state"
 import Modal from "./components/Modal"
 import IconButton from "./components/IconButton"
 import { SunIcon, CloseIcon, HelpIcon } from "./components/Icons"
@@ -83,7 +83,7 @@ type Props = {}
 
 const DevModalComponent = (props: { id: string }) => {
   const { id } = props
-  const [field, updateField] = useDebugField(id)
+  const [field, updateField] = useField(id)
 
   const onChangeCheckbox = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -118,7 +118,7 @@ const DevModalComponent = (props: { id: string }) => {
 }
 
 const DevModal = (props: Props) => {
-  const ids = useDebugFieldIds()
+  const ids = useIds()
 
   // TODO: reorder fields based on alphabetical titles?
   // TODO: reorder fields to match narrow fields together?
