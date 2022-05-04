@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { useDebugFieldIds, useDebugField } from "./state"
 import Modal from "./components/Modal"
 import IconButton from "./components/IconButton"
-import { SunIcon, CloseIcon } from "./components/Icons"
+import { SunIcon, CloseIcon, HelpIcon } from "./components/Icons"
 
 const Styled = {
   TitleBar: styled.div`
@@ -29,8 +29,9 @@ const Styled = {
   `,
 
   Fields: styled.div`
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 150px);
+    grid-auto-rows: minmax(30px, auto);
     gap: 16px;
   `,
   Field: styled.div``,
@@ -49,8 +50,33 @@ const Styled = {
     font-size: 14px;
     cursor: pointer;
   `,
-
+  FieldHelp: styled(HelpIcon)`
+    width: 16px;
+    height: 16px;
+    stroke-width: 3px;
+    color: #b8b8b8;
+    margin-left: 4px;
+  `,
   FieldControl: styled.div``,
+
+  // ---
+  GroupedField: styled.div`
+    border: 1px solid red;
+    grid-column: 1 / 3;
+
+    /* TODO: Combine with Fields css above */
+    display: grid;
+    grid-template-columns: repeat(2, 150px);
+    grid-auto-rows: minmax(30px, auto);
+    gap: 16px;
+  `,
+  NarrowField: styled.div`
+    border: 1px solid blue;
+  `,
+  WideField: styled.div`
+    border: 1px solid blue;
+    grid-column: 1 / 3;
+  `,
 }
 
 type Props = {}
@@ -65,8 +91,14 @@ const DevModalComponent = (props: { id: string }) => {
     [updateField],
   )
 
+  // TODO
+  let description = "a"
+
+  let wide = true
+  const Field = wide ? Styled.WideField : Styled.NarrowField
+
   return (
-    <Styled.Field>
+    <Field>
       <Styled.FieldHeader>
         <Styled.FieldTitle>
           <Styled.FieldCheckbox
@@ -76,16 +108,20 @@ const DevModalComponent = (props: { id: string }) => {
           />
           TODO: Title
         </Styled.FieldTitle>
+        {description ? <Styled.FieldHelp /> : null}
       </Styled.FieldHeader>
       <Styled.FieldControl>
         {field && field.control ? <field.control /> : null}
       </Styled.FieldControl>
-    </Styled.Field>
+    </Field>
   )
 }
 
 const DevModal = (props: Props) => {
   const ids = useDebugFieldIds()
+
+  // TODO: reorder fields based on alphabetical titles?
+  // TODO: reorder fields to match narrow fields together?
 
   return (
     <Modal>
@@ -98,6 +134,17 @@ const DevModal = (props: Props) => {
       </Styled.TitleBar>
 
       <Styled.Fields>
+        <Styled.WideField />
+        <Styled.WideField />
+        <Styled.NarrowField />
+        <Styled.NarrowField />
+        <Styled.WideField />
+        <Styled.GroupedField>
+          <Styled.WideField />
+          <Styled.NarrowField />
+          <Styled.NarrowField />
+        </Styled.GroupedField>
+
         {ids.map((id) => (
           <DevModalComponent id={id} />
         ))}

@@ -32,14 +32,22 @@ const Styled = {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    pointer-events: none;
   `,
   Modal: styled.div`
     background-color: white;
     padding: 24px;
     border-radius: 4px;
     ${elevatedContainer("rgba(0, 0, 0, 0.05)")};
+    pointer-events: auto;
   `,
 }
 
