@@ -2,7 +2,7 @@ import * as React from "react"
 import create from "zustand"
 import { Control } from "./controls"
 
-type ControlState<Value extends unknown> = Control & {
+export type ControlState<Value extends unknown> = Control & {
   activated: boolean
   value: Value
 }

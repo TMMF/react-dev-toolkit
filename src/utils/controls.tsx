@@ -1,6 +1,9 @@
 import * as React from "react"
 import styled from "styled-components"
 import { useStore, useField } from "./state"
+import Fields from "../atoms/Fields"
+import Field from "../atoms/Field"
+import { FieldSize } from "../utils/constants"
 
 const Styled = {
   Input: styled.input`
@@ -45,26 +48,53 @@ export const NumberControl: ControlComponent<number | undefined> = (props) => {
   return <Styled.Input type="number" value={value ?? ""} onChange={_onChange} />
 }
 
-/*
-IDEA:
-GroupControl({
-  fieldName: StringControl(validationOptions),
-  ...
-}) -> GroupedField with each of the controls within it auto-organized
- */
+export const ObjectControl =
+  (
+    controls: Record<string, ControlComponent>,
+  ): ControlComponent<Record<string, any>> =>
+  (props) => {
+    const { value, onChange } = props
+    const _value = value ?? {}
 
-export enum FieldSize {
-  Small = "small",
-  Medium = "medium",
-  Large = "large",
-}
+    const onFieldChange = React.useCallback(
+      (field: string) => (fieldValue: unknown) =>
+        onChange({ ..._value, [field]: fieldValue }),
+      [onChange],
+    )
 
+    return (
+      <Fields showBorder>
+        {Object.entries(controls).map(([name, Control]) => {
+          return (
+            <Field
+              key={name}
+              title={name}
+              size={getSize(Control)}
+              Control={() => (
+                <Control value={_value[name]} onChange={onFieldChange(name)} />
+              )}
+            />
+          )
+        })}
+      </Fields>
+    )
+  }
+
+// TODO: Plus icon + delete icon to add/remove from list
+export const ArrayControl = undefined
+
+// TODO: type this so that the control === Default === transform
 export type Options = {
   title: string
   description?: string
   control: ControlComponent
-  validation?: undefined // yup?
   size?: FieldSize
+
+  // TODO: build out these functionality
+  validation?: undefined // yup?
+  transform?: (value: unknown) => unknown // transform mocked data to something else for output
+  default?: unknown // default value to use instead of `undefined`
+  merge?: boolean // for objects/tuples, merge fields or not
 }
 
 export type Control = Omit<Options, "control"> & {
@@ -84,7 +114,7 @@ const getSize = (component: ControlComponent, size?: FieldSize): FieldSize => {
   } else if (component === NumberControl) {
     return FieldSize.Small
   } else {
-    return FieldSize.Small
+    return FieldSize.Large
   }
 }
 

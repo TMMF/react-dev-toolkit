@@ -1,5 +1,6 @@
 // export { default as DevToolkitModal } from "./components/DevToolkitModal"
 export { default as DevToolkitButton } from "./components/DevToolkitButton"
+export * from "./utils/constants"
 export * from "./utils/controls"
 
 // TODO: Define a utility function for transforming the data from
@@ -12,3 +13,8 @@ export * from "./utils/controls"
 // TODO: fix hot-reloading issues where new components pop up
 
 // TODO: create color palettes for light mode + dark mode, allow passing in custom color pallette, allow setting color mode via prop or via ENV variable
+
+// TODO: allow fields to show/hide depending on components? build in watcher functionality to show hide fields dynamically?
+// TODO: build out tabbing? allow better organization of fields?
+
+// TODO: add error messages for data validation
