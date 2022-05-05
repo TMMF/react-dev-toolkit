@@ -9,6 +9,17 @@ import { FieldSize } from "../utils/constants"
 const Styled = {
   Input: styled.input`
     width: 100%;
+    padding: 8px;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
   `,
   Select: styled.select`
     width: 100%;
@@ -204,7 +215,6 @@ export const UnionControl = undefined
 // TODO: type this so that the control === Default === transform
 export type Options = {
   title: string
-  description?: string
   control: ControlComponent
   size?: FieldSize
 
@@ -215,6 +225,7 @@ export type Options = {
   merge?: boolean // for objects/tuples, merge fields or not
 
   // TODO: maybe put some of these options inside the control?
+  // placeholder?
 }
 
 export type Control = Omit<Options, "control"> & {
@@ -223,6 +234,7 @@ export type Control = Omit<Options, "control"> & {
   size: FieldSize
 }
 
+// TODO: change logic for determining default size
 const getSize = (component: ControlComponent, size?: FieldSize): FieldSize => {
   if (size != null) {
     return size

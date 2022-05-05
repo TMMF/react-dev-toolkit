@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 const Styled = {
   Root: styled.div`
-    border: 1px solid black;
+    border: 1px dashed black;
     padding: 8px;
     max-height: 200px;
     overflow: scroll;

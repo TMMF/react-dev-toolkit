@@ -1,7 +1,7 @@
 import * as React from "react"
 import styled from "styled-components"
 
-import { FieldSize } from "../utils/constants"
+import { FieldSize } from "../../utils/constants"
 
 const Styled = {
   FieldHeader: styled.div`
@@ -52,51 +52,78 @@ const Styled = {
     position: relative;
     margin-top: 8px;
   `,
+  Input: styled.input`
+    width: 100%;
+    padding: 8px;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
+  `,
+}
+
+const getFieldFromSize = (size: FieldSize) => {
+  switch (size) {
+    case FieldSize.Small:
+      return Styled.SmallField
+    case FieldSize.Medium:
+      return Styled.MediumField
+    case FieldSize.Large:
+      return Styled.LargeField
+  }
 }
 
 type Props = {
-  title: string
-  size: FieldSize
+  name: string
+  size?: FieldSize
+  value?: string
+  onChange?: (value: string) => void
   checked?: boolean
-  onClickCheckbox?: (checked: boolean) => void
-  control: JSX.Element
+  onCheck?: (checked: boolean) => void
   error?: string
 }
 
-export const Field = (props: Props) => {
-  const { title, size, checked, onClickCheckbox, control, error } = props
+export const StringField = (props: Props) => {
+  const { name, size, value, onChange, checked, onCheck, error } = props
 
-  const _onClickCheckbox = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      onClickCheckbox?.(e.target.checked),
-    [onClickCheckbox],
+  const _onCheck = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => onCheck?.(e.target.checked),
+    [onCheck],
   )
 
-  const Field =
-    size === FieldSize.Large
-      ? Styled.LargeField
-      : size === FieldSize.Medium
-      ? Styled.MediumField
-      : Styled.SmallField
+  const _onChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => onChange?.(e.target.value),
+    [onChange],
+  )
+
+  const Field = getFieldFromSize(size ?? FieldSize.Medium)
 
   return (
     <Field>
       <Styled.FieldHeader>
         <Styled.FieldTitle>
-          {checked != null && onClickCheckbox != null ? (
+          {checked != null && onCheck != null ? (
             <Styled.FieldCheckbox
               type="checkbox"
               checked={checked}
-              onChange={_onClickCheckbox}
+              onChange={_onCheck}
             />
           ) : null}
-          {title}
+          {name}
         </Styled.FieldTitle>
       </Styled.FieldHeader>
-      <Styled.FieldControl>{control}</Styled.FieldControl>
+      <Styled.FieldControl>
+        <Styled.Input type="text" value={value ?? ""} onChange={_onChange} />
+      </Styled.FieldControl>
       {error ? <Styled.FieldError>{error}</Styled.FieldError> : null}
     </Field>
   )
 }
 
-export default Field
+export default StringField

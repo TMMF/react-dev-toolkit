@@ -2,6 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 import IconButton from "../atoms/IconButton"
 import { ToolIcon } from "../atoms/Icons"
+import { ColorMode } from "../utils/constants"
 import { elevatedContainer } from "../utils/styles"
 import DevToolkitModal from "./DevToolkitModal"
 
@@ -31,12 +32,22 @@ type Props = {}
 // TODO: style the button so that it floats in a corner based on a prop, then also allow for relative positioning with prop as well and classname for styling
 const DevToolkitButton = (props: Props) => {
   // TODO: change this to false when done
-  const [visible, toggle] = React.useReducer((s) => !s, true)
+  const [visible, toggleVisibility] = React.useReducer((s) => !s, true)
+  const [colorMode, toggleColorMode] = React.useReducer(
+    (s) => (s === ColorMode.Light ? ColorMode.Dark : ColorMode.Light),
+    ColorMode.Light,
+  )
 
   return (
     <>
-      <Styled.Button Icon={<ToolIcon />} onClick={toggle} />
-      {visible ? <DevToolkitModal onClose={toggle} /> : null}
+      <Styled.Button Icon={<ToolIcon />} onClick={toggleVisibility} />
+      {visible ? (
+        <DevToolkitModal
+          onClose={toggleVisibility}
+          colorMode={colorMode}
+          toggleColorMode={toggleColorMode}
+        />
+      ) : null}
     </>
   )
 }

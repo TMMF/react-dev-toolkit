@@ -5,7 +5,7 @@ import Fields from "./Fields"
 
 const Styled = {
   Root: styled(Fields)`
-    border: 1px solid black;
+    border: 1px dashed black;
     padding: 8px;
   `,
 }

@@ -18,7 +18,6 @@ const useDevField0 = dev({
 
 const useDevField1 = dev({
   title: "Test Title Value 1",
-  description: "This is a test description to explain this component",
   control: StringControl,
   validation: undefined,
 })

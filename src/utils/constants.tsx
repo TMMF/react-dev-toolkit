@@ -3,3 +3,8 @@ export enum FieldSize {
   Medium = "medium",
   Large = "large",
 }
+
+export enum ColorMode {
+  Light = "light",
+  Dark = "dark",
+}

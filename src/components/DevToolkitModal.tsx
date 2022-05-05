@@ -5,7 +5,8 @@ import Field from "../atoms/Field"
 import Fields from "../atoms/Fields"
 import Modal from "../atoms/Modal"
 import IconButton from "../atoms/IconButton"
-import { SunIcon, CloseIcon } from "../atoms/Icons"
+import { SunIcon, CloseIcon, MoonIcon } from "../atoms/Icons"
+import { ColorMode } from "../utils/constants"
 import { useIds, useField } from "../utils/state"
 
 export const Styled = {
@@ -43,7 +44,6 @@ const DevModalField = (props: { id: string }) => {
   return (
     <Field
       title={field.title}
-      description={field.description}
       size={field.size}
       checked={field.activated}
       onClickCheckbox={onChangeCheckbox}
@@ -54,21 +54,25 @@ const DevModalField = (props: { id: string }) => {
 
 type Props = {
   onClose: () => void
+  colorMode: ColorMode
+  toggleColorMode: () => void
 }
 
 const DevModal = (props: Props) => {
-  const { onClose } = props
+  const { onClose, colorMode, toggleColorMode } = props
   const ids = useIds()
 
   // TODO: reorder fields based on alphabetical titles?
   // TODO: reorder fields to match narrow fields together?
+
+  const ColorModeIcon = colorMode === ColorMode.Light ? SunIcon : MoonIcon
 
   return (
     <Modal>
       <Styled.TitleBar>
         <Styled.Title>Development Toolkit</Styled.Title>
         <Styled.Controls>
-          <IconButton Icon={<SunIcon />} aria-label="Light Mode" />
+          <IconButton Icon={<ColorModeIcon />} onClick={toggleColorMode} />
           <IconButton
             Icon={<CloseIcon />}
             onClick={onClose}
