@@ -18,3 +18,5 @@ export * from "./utils/controls"
 // TODO: build out tabbing? allow better organization of fields?
 
 // TODO: add error messages for data validation
+
+// TODO: change how sizing defaults work; reference equality doesn't work with ObjectControl due to defining new ones always

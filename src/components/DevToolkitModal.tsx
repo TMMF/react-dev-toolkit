@@ -47,7 +47,7 @@ const DevModalField = (props: { id: string }) => {
       size={field.size}
       checked={field.activated}
       onClickCheckbox={onChangeCheckbox}
-      Control={field.control}
+      control={<field.control />}
     />
   )
 }

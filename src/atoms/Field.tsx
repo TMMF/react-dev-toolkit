@@ -32,6 +32,13 @@ const Styled = {
     margin-left: 4px;
   `,
   FieldControl: styled.div``,
+  FieldError: styled.p`
+    margin: 0;
+    font-family: monospace;
+    font-size: 12px;
+    color: #ff6961;
+    height: 8px;
+  `,
   SmallField: styled.div`
     grid-column: span 1;
   `,
@@ -49,11 +56,13 @@ type Props = {
   size: FieldSize
   checked?: boolean
   onClickCheckbox?: (checked: boolean) => void
-  Control: React.ComponentType
+  control: JSX.Element
+  error?: string
 }
 
 export const Field = (props: Props) => {
-  const { title, description, size, checked, onClickCheckbox, Control } = props
+  const { title, description, size, checked, onClickCheckbox, control, error } =
+    props
 
   const _onClickCheckbox = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -83,9 +92,8 @@ export const Field = (props: Props) => {
         </Styled.FieldTitle>
         {description ? <Styled.FieldHelp /> : null}
       </Styled.FieldHeader>
-      <Styled.FieldControl>
-        <Control />
-      </Styled.FieldControl>
+      <Styled.FieldControl>{control}</Styled.FieldControl>
+      {error ? <Styled.FieldError>{error}</Styled.FieldError> : null}
     </Field>
   )
 }

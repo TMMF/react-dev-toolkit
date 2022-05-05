@@ -1,15 +1,9 @@
 import * as React from "react"
-import styled, { css } from "styled-components"
-
-const borderCss = css`
-  border: 1px solid black;
-  padding: 8px;
-`
+import styled from "styled-components"
 
 const Styled = {
-  Fields: styled.div<{ $showBorder?: boolean }>`
+  Fields: styled.div`
     grid-column: span 3;
-    ${(props) => (props.$showBorder ? borderCss : null)};
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -20,12 +14,12 @@ const Styled = {
 
 type Props = {
   children: React.ReactNode
-  showBorder?: boolean
+  className?: string
 }
 
 const Fields = (props: Props) => {
-  const { children, showBorder } = props
-  return <Styled.Fields $showBorder={showBorder}>{children}</Styled.Fields>
+  const { children, className } = props
+  return <Styled.Fields className={className}>{children}</Styled.Fields>
 }
 
 export default Fields

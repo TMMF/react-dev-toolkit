@@ -1,7 +1,8 @@
 import * as React from "react"
 import styled from "styled-components"
 import { useStore, useField } from "./state"
-import Fields from "../atoms/Fields"
+import FieldGroup from "../atoms/FieldGroup"
+import FieldSet from "../atoms/FieldSet"
 import Field from "../atoms/Field"
 import { FieldSize } from "../utils/constants"
 
@@ -9,15 +10,10 @@ const Styled = {
   Input: styled.input`
     width: 100%;
   `,
+  Select: styled.select`
+    width: 100%;
+  `,
 }
-
-/**
- * Default Controls TODO:
- * - String Input / Free-Text Input
- * - Number Input
- * - Dropdown Input
- * - Checkbox Input
- */
 
 type ControlComponent<Value = any> = React.ComponentType<{
   value: Value
@@ -48,40 +44,162 @@ export const NumberControl: ControlComponent<number | undefined> = (props) => {
   return <Styled.Input type="number" value={value ?? ""} onChange={_onChange} />
 }
 
-export const ObjectControl =
-  (
-    controls: Record<string, ControlComponent>,
-  ): ControlComponent<Record<string, any>> =>
+export const BooleanControl: ControlComponent<boolean> = (props) => {
+  const { value, onChange } = props
+
+  const _onChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.checked),
+    [onChange],
+  )
+
+  return (
+    <Styled.Input
+      type="checkbox"
+      checked={value ?? false}
+      onChange={_onChange}
+    />
+  )
+}
+
+export const SelectControl =
+  (values: unknown[]): ControlComponent<unknown> =>
   (props) => {
+    const { value, onChange } = props
+
+    const _onChange = React.useCallback(
+      (e: React.ChangeEvent<HTMLSelectElement>) =>
+        onChange(values[e.target.options.selectedIndex]),
+      [onChange],
+    )
+
+    return (
+      <Styled.Select value={value} onChange={_onChange}>
+        {values.map((val) => (
+          <option key={val} value={val}>
+            {val}
+          </option>
+        ))}
+      </Styled.Select>
+    )
+  }
+
+export const ObjectControl = (
+  controls: Record<string, ControlComponent>,
+): ControlComponent<Record<string, any>> => {
+  const _controls = Object.entries(controls)
+
+  return (props) => {
     const { value, onChange } = props
     const _value = value ?? {}
 
     const onFieldChange = React.useCallback(
       (field: string) => (fieldValue: unknown) =>
         onChange({ ..._value, [field]: fieldValue }),
-      [onChange],
+      [onChange, _value],
     )
 
     return (
-      <Fields showBorder>
-        {Object.entries(controls).map(([name, Control]) => {
+      <FieldGroup>
+        {_controls.map(([name, Control]) => {
           return (
             <Field
               key={name}
               title={name}
               size={getSize(Control)}
-              Control={() => (
+              control={
                 <Control value={_value[name]} onChange={onFieldChange(name)} />
-              )}
+              }
             />
           )
         })}
-      </Fields>
+      </FieldGroup>
+    )
+  }
+}
+
+export const ArrayControl =
+  (Control: ControlComponent): ControlComponent<any[]> =>
+  (props) => {
+    const { value, onChange } = props
+    const _value = value ?? []
+
+    const onIdxChange = React.useCallback(
+      (idx: number) => (fieldValue: unknown) =>
+        onChange([
+          ..._value.slice(0, idx),
+          fieldValue,
+          ..._value.slice(idx + 1),
+        ]),
+      [onChange, _value],
+    )
+
+    const onDelete = React.useCallback(
+      (idx: number) => () =>
+        onChange([..._value.slice(0, idx), ..._value.slice(idx + 1)]),
+      [onChange, _value],
+    )
+
+    const onAdd = React.useCallback(
+      () => onChange([..._value, undefined]),
+      [onChange, _value],
+    )
+
+    return (
+      <FieldSet>
+        {_value.map((val, idx) => (
+          <>
+            <Field
+              key={idx}
+              title={`TODO-${idx}`}
+              size={getSize(Control)}
+              control={<Control value={val} onChange={onIdxChange(idx)} />}
+            />
+            <button onClick={onDelete(idx)}>Delete</button>
+          </>
+        ))}
+        <button onClick={onAdd}>Add</button>
+      </FieldSet>
     )
   }
 
-// TODO: Plus icon + delete icon to add/remove from list
-export const ArrayControl = undefined
+export const TupleControl =
+  (controls: ControlComponent[]): ControlComponent<any[]> =>
+  (props) => {
+    const { value, onChange } = props
+    const _value = value ?? new Array(controls.length).fill(undefined)
+
+    const onIdxChange = React.useCallback(
+      (idx: number) => (fieldValue: unknown) =>
+        onChange([
+          ..._value.slice(0, idx),
+          fieldValue,
+          ..._value.slice(idx + 1),
+        ]),
+      [onChange, _value],
+    )
+
+    return (
+      <FieldSet>
+        {controls.map((Control, idx) => (
+          <Field
+            key={idx}
+            title={`TODO-${idx}`}
+            size={getSize(Control)}
+            control={
+              <Control value={_value[idx]} onChange={onIdxChange(idx)} />
+            }
+          />
+        ))}
+      </FieldSet>
+    )
+  }
+
+// TODO: maybe not for MVP
+export const UnionControl = undefined
+
+// ---
+// ---
+// ---
 
 // TODO: type this so that the control === Default === transform
 export type Options = {
@@ -95,6 +213,8 @@ export type Options = {
   transform?: (value: unknown) => unknown // transform mocked data to something else for output
   default?: unknown // default value to use instead of `undefined`
   merge?: boolean // for objects/tuples, merge fields or not
+
+  // TODO: maybe put some of these options inside the control?
 }
 
 export type Control = Omit<Options, "control"> & {
@@ -112,6 +232,10 @@ const getSize = (component: ControlComponent, size?: FieldSize): FieldSize => {
   if (component === StringControl) {
     return FieldSize.Medium
   } else if (component === NumberControl) {
+    return FieldSize.Small
+  } else if (component === BooleanControl) {
+    return FieldSize.Small
+  } else if (component === SelectControl) {
     return FieldSize.Small
   } else {
     return FieldSize.Large
