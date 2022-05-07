@@ -1,7 +1,7 @@
 import * as React from "react"
 import styled from "styled-components"
 
-import Fields from "./Fields"
+import Fields from "./Fields/Fields"
 
 const Styled = {
   Root: styled(Fields)`

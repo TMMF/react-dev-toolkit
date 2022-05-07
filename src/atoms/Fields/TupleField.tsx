@@ -31,17 +31,16 @@ const Styled = {
   `,
 }
 
-type Object = Record<string, unknown>
 type Field =
   | typeof StringField
   | typeof NumberField
   | typeof BooleanField
   | typeof SelectField
-  | typeof ObjectField
+  | typeof TupleField
 
-type Props<Value extends Object> = {
+type Props<Value extends unknown[]> = {
   name: string
-  fields: Record<string, Field>
+  fields: Field[]
   size?: FieldSize
   value?: Value
   onChange?: (value: Value) => void
@@ -50,7 +49,7 @@ type Props<Value extends Object> = {
   error?: string
 }
 
-export const ObjectField = <Value extends Object>(props: Props<Value>) => {
+export const TupleField = <Value extends unknown[]>(props: Props<Value>) => {
   const { name, fields, size, value, onChange, checked, onCheck, error } = props
 
   const hasError = !!error
@@ -60,12 +59,14 @@ export const ObjectField = <Value extends Object>(props: Props<Value>) => {
         {name}
       </FieldTitle>
       <Styled.Fields>
-        {Object.entries(fields).map(([fieldName, Field]) => (
+        {fields.map((Field, idx) => (
           <Field
-            key={fieldName}
-            name={fieldName}
-            value={value[fieldName]}
-            onChange={(val) => onChange({ ...value, [fieldName]: val })}
+            key={idx}
+            name={`Index ${idx}`}
+            value={value[idx]}
+            onChange={(val) =>
+              onChange([...value?.slice(0, idx), val, ...value?.slice(idx + 1)])
+            }
             error=""
           />
         ))}
@@ -75,4 +76,4 @@ export const ObjectField = <Value extends Object>(props: Props<Value>) => {
   )
 }
 
-export default ObjectField
+export default TupleField

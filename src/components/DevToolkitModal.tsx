@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 import Field from "../atoms/Field"
-import Fields from "../atoms/Fields"
+import Fields from "../atoms/Fields/Fields"
 import Modal from "../atoms/Modal"
 import IconButton from "../atoms/IconButton"
 import { SunIcon, CloseIcon, MoonIcon } from "../atoms/Icons"
@@ -14,6 +14,7 @@ import NumberField from "../atoms/Fields/NumberField"
 import BooleanField from "../atoms/Fields/BooleanField"
 import SelectField from "../atoms/Fields/SelectField"
 import ObjectField from "../atoms/Fields/ObjectField"
+import TupleField from "../atoms/Fields/TupleField"
 
 export const Styled = {
   TitleBar: styled.div`
@@ -133,14 +134,23 @@ const DevModal = (props: Props) => {
         />
         <ObjectField
           name="Object Field"
+          // TODO: doesn't handle nesting of ObjectField within ObjectField well
           fields={{
             "Field 1": StringField,
             "Field 2": NumberField,
             "Field 3": NumberField,
             "Field 4": StringField,
-            // TODO: doesn't handle nesting of ObjectField within ObjectField well
           }}
           value={{}}
+          onChange={() => {}}
+          checked={checked}
+          onCheck={setChecked}
+        />
+        <TupleField
+          name="Tuple Field"
+          // TODO: doesn't handle nesting of ObjectField within ObjectField well
+          fields={[StringField, NumberField, NumberField, StringField]}
+          value={[]}
           onChange={() => {}}
           checked={checked}
           onCheck={setChecked}
