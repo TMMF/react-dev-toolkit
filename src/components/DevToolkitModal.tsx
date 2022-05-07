@@ -12,6 +12,7 @@ import { useIds, useField } from "../utils/state"
 import StringField from "../atoms/Fields/StringField"
 import NumberField from "../atoms/Fields/NumberField"
 import BooleanField from "../atoms/Fields/BooleanField"
+import SelectField from "../atoms/Fields/SelectField"
 
 export const Styled = {
   TitleBar: styled.div`
@@ -75,7 +76,8 @@ const DevModal = (props: Props) => {
   const [str, setStr] = React.useState("test")
   const [num, setNum] = React.useState(123)
   const [bool, setBool] = React.useState(false)
-  const [checked, setCheckd] = React.useState(false)
+  const [select, setSelect] = React.useState("Test 1")
+  const [checked, setChecked] = React.useState(false)
 
   return (
     <Modal>
@@ -105,21 +107,28 @@ const DevModal = (props: Props) => {
           value={str}
           onChange={setStr}
           checked={checked}
-          onCheck={setCheckd}
+          onCheck={setChecked}
         />
         <NumberField
           name="Number Field"
           value={num}
           onChange={setNum}
           checked={checked}
-          onCheck={setCheckd}
+          onCheck={setChecked}
         />
         <BooleanField
           name="Boolean Field"
           value={bool}
           onChange={setBool}
           checked={checked}
-          onCheck={setCheckd}
+          onCheck={setChecked}
+        />
+        <SelectField
+          name="Select Field"
+          value={select}
+          onChange={setSelect}
+          checked={checked}
+          onCheck={setChecked}
         />
       </Fields>
     </Modal>

@@ -9,6 +9,7 @@ const Styled = {
     appearance: none;
     margin: 0;
     height: 35px;
+    background-color: white;
 
     &:not(:disabled):hover {
       cursor: pointer;

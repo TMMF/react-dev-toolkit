@@ -74,3 +74,5 @@ export const SquarePlusIcon = createIcon(
 export const SquareMinusIcon = createIcon(
   "M5 3h14c1.108 0 2 .892 2 2v14c0 1.108-.892 2-2 2H5c-1.108 0-2-.892-2-2V5c0-1.108.892-2 2-2Zm3 9h8",
 )
+
+export const ChevronDownIcon = createIcon("m6 9 6 6 6-6")
