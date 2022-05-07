@@ -20,3 +20,6 @@ export * from "./utils/controls"
 // TODO: add error messages for data validation
 
 // TODO: change how sizing defaults work; reference equality doesn't work with ObjectControl due to defining new ones always
+
+// TODO: add import / export functionality to save and share mocked data
+// TODO: add functionality to select from pre-existing mocks within a specified folder

@@ -9,6 +9,9 @@ import { SunIcon, CloseIcon, MoonIcon } from "../atoms/Icons"
 import { ColorMode } from "../utils/constants"
 import { useIds, useField } from "../utils/state"
 
+import StringField from "../atoms/Fields/StringField"
+import NumberField from "../atoms/Fields/NumberField"
+
 export const Styled = {
   TitleBar: styled.div`
     display: flex;
@@ -67,6 +70,11 @@ const DevModal = (props: Props) => {
 
   const ColorModeIcon = colorMode === ColorMode.Light ? SunIcon : MoonIcon
 
+  // TODO: REMOVE
+  const [str, setStr] = React.useState("test")
+  const [num, setNum] = React.useState(123)
+  const [checked, setCheckd] = React.useState(false)
+
   return (
     <Modal>
       <Styled.TitleBar>
@@ -85,6 +93,25 @@ const DevModal = (props: Props) => {
         {ids.map((id) => (
           <DevModalField key={id} id={id} />
         ))}
+
+        <hr />
+        <hr />
+        <hr />
+
+        <StringField
+          name="String Field"
+          value={str}
+          onChange={setStr}
+          checked={checked}
+          onCheck={setCheckd}
+        />
+        <NumberField
+          name="Number Field"
+          value={num}
+          onChange={setNum}
+          checked={checked}
+          onCheck={setCheckd}
+        />
       </Fields>
     </Modal>
   )

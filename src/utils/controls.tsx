@@ -205,6 +205,15 @@ export const TupleControl =
     )
   }
 
+// Each of these is a type on `input` element
+export const DateControl = undefined
+export const TimeControl = undefined
+export const DateTimeControl = undefined
+export const ColorControl = undefined
+export const EmailControl = undefined
+export const TelephoneControl = undefined
+export const UrlControl = undefined
+
 // TODO: maybe not for MVP
 export const UnionControl = undefined
 

@@ -53,3 +53,24 @@ export const HelpIcon = createIcon(
 export const ToolIcon = createIcon(
   "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z",
 )
+
+export const ErrorIcon = createIcon(
+  "M7.86 2h8.28L22 7.86v8.28L16.14 22H7.86L2 16.14V7.86L7.86 2zM15 9l-6 6m0-6 6 6",
+)
+
+export const SquareIcon = createIcon(
+  "M5 3h14c1.108 0 2 .892 2 2v14c0 1.108-.892 2-2 2H5c-1.108 0-2-.892-2-2V5c0-1.108.892-2 2-2Z",
+)
+
+export const SquareCheckIcon = createIcon(
+  "m9 11 3 3L22 4",
+  "M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11",
+)
+
+export const SquarePlusIcon = createIcon(
+  "M5 3h14c1.108 0 2 .892 2 2v14c0 1.108-.892 2-2 2H5c-1.108 0-2-.892-2-2V5c0-1.108.892-2 2-2Zm7 5v8m-4-4h8",
+)
+
+export const SquareMinusIcon = createIcon(
+  "M5 3h14c1.108 0 2 .892 2 2v14c0 1.108-.892 2-2 2H5c-1.108 0-2-.892-2-2V5c0-1.108.892-2 2-2Zm3 9h8",
+)
