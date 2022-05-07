@@ -9,6 +9,10 @@ const Styled = {
     appearance: none;
     background-color: white;
 
+    &:not(:disabled):hover {
+      cursor: pointer;
+    }
+
     ${ContainerStyle};
   `,
   ChevronDownIcon: styled(ChevronDownIcon)`

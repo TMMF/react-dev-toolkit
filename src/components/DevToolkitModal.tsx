@@ -13,6 +13,7 @@ import StringField from "../atoms/Fields/StringField"
 import NumberField from "../atoms/Fields/NumberField"
 import BooleanField from "../atoms/Fields/BooleanField"
 import SelectField from "../atoms/Fields/SelectField"
+import ObjectField from "../atoms/Fields/ObjectField"
 
 export const Styled = {
   TitleBar: styled.div`
@@ -127,6 +128,20 @@ const DevModal = (props: Props) => {
           name="Select Field"
           value={select}
           onChange={setSelect}
+          checked={checked}
+          onCheck={setChecked}
+        />
+        <ObjectField
+          name="Object Field"
+          fields={{
+            "Field 1": StringField,
+            "Field 2": NumberField,
+            "Field 3": NumberField,
+            "Field 4": StringField,
+            // TODO: doesn't handle nesting of ObjectField within ObjectField well
+          }}
+          value={{}}
+          onChange={() => {}}
           checked={checked}
           onCheck={setChecked}
         />
