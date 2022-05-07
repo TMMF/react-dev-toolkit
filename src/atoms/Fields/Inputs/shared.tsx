@@ -4,6 +4,7 @@ export const ContainerStyle = css<{ $hasError?: boolean }>`
   width: 100%;
   padding: 8px;
   font-size: 14px;
+  font-family: monospace;
 
   border: 1px solid #aaaaaa;
   border-radius: 4px;
