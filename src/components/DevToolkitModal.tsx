@@ -15,6 +15,7 @@ import BooleanField from "../atoms/Fields/BooleanField"
 import SelectField from "../atoms/Fields/SelectField"
 import ObjectField from "../atoms/Fields/ObjectField"
 import TupleField from "../atoms/Fields/TupleField"
+import ArrayField from "../atoms/Fields/ArrayField"
 
 export const Styled = {
   TitleBar: styled.div`
@@ -79,6 +80,9 @@ const DevModal = (props: Props) => {
   const [num, setNum] = React.useState(123)
   const [bool, setBool] = React.useState(false)
   const [select, setSelect] = React.useState("Test 1")
+  const [obj, setObj] = React.useState({})
+  const [tuple, setTuple] = React.useState([])
+  const [arr, setArr] = React.useState([])
   const [checked, setChecked] = React.useState(false)
 
   return (
@@ -141,8 +145,8 @@ const DevModal = (props: Props) => {
             "Field 3": NumberField,
             "Field 4": StringField,
           }}
-          value={{}}
-          onChange={() => {}}
+          value={obj}
+          onChange={setObj}
           checked={checked}
           onCheck={setChecked}
         />
@@ -150,8 +154,17 @@ const DevModal = (props: Props) => {
           name="Tuple Field"
           // TODO: doesn't handle nesting of ObjectField within ObjectField well
           fields={[StringField, NumberField, NumberField, StringField]}
-          value={[]}
-          onChange={() => {}}
+          value={tuple}
+          onChange={setTuple}
+          checked={checked}
+          onCheck={setChecked}
+        />
+        <ArrayField
+          name="Array Field"
+          // TODO: doesn't handle nesting of ObjectField within ObjectField well
+          Field={StringField}
+          value={arr}
+          onChange={setArr}
           checked={checked}
           onCheck={setChecked}
         />

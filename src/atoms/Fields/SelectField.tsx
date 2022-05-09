@@ -16,14 +16,31 @@ type Props<Values extends string> = {
   checked?: boolean
   onCheck?: (checked: boolean) => void
   error?: string
+
+  Icon?: JSX.Element
+  onAction?: () => void
 }
 
 export const SelectField = <Values extends string>(props: Props<Values>) => {
-  const { name, size, value, onChange, checked, onCheck, error } = props
+  const {
+    name,
+    size,
+    value,
+    onChange,
+    checked,
+    onCheck,
+    error,
+    Icon,
+    onAction,
+  } = props
 
   const hasError = !!error
   return (
-    <FieldContainer size={size ?? FieldSize.Small}>
+    <FieldContainer
+      size={size ?? FieldSize.Small}
+      Icon={Icon}
+      onAction={onAction}
+    >
       <FieldTitle checked={checked} onCheck={onCheck} hasError={hasError}>
         {name}
       </FieldTitle>

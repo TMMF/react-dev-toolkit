@@ -16,14 +16,31 @@ type Props = {
   checked?: boolean
   onCheck?: (checked: boolean) => void
   error?: string
+
+  Icon?: JSX.Element
+  onAction?: () => void
 }
 
 export const StringField = (props: Props) => {
-  const { name, size, value, onChange, checked, onCheck, error } = props
+  const {
+    name,
+    size,
+    value,
+    onChange,
+    checked,
+    onCheck,
+    error,
+    Icon,
+    onAction,
+  } = props
 
   const hasError = !!error
   return (
-    <FieldContainer size={size ?? FieldSize.Medium}>
+    <FieldContainer
+      size={size ?? FieldSize.Medium}
+      Icon={Icon}
+      onAction={onAction}
+    >
       <FieldTitle checked={checked} onCheck={onCheck} hasError={hasError}>
         {name}
       </FieldTitle>

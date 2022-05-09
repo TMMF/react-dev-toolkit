@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components"
 import { FieldSize } from "../../utils/constants"
 
+import IconButton from "../IconButton"
+
 const fieldCss = css`
   position: relative;
   padding-top: 7px;
@@ -19,6 +21,11 @@ const Styled = {
     ${fieldCss};
     grid-column: span 3;
   `,
+  IconButton: styled(IconButton)`
+    position: absolute;
+    top: 12px;
+    right: 6px;
+  `,
 }
 
 const getFieldFromSize = (size: FieldSize) => {
@@ -34,13 +41,20 @@ const getFieldFromSize = (size: FieldSize) => {
 
 type Props = {
   size: FieldSize
+  Icon?: JSX.Element
+  onAction?: () => void
   children?: React.ReactNode
 }
 
 const FieldContainer = (props: Props) => {
-  const { size, children } = props
+  const { size, Icon, onAction, children } = props
   const Field = getFieldFromSize(size)
-  return <Field>{children}</Field>
+  return (
+    <Field>
+      {children}
+      {Icon ? <Styled.IconButton Icon={Icon} onClick={onAction} /> : null}
+    </Field>
+  )
 }
 
 export default FieldContainer
