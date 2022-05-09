@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 import { FieldSize } from "../../utils/constants"
-import { FieldProps, FieldComponent } from "../../utils/types"
+import { FieldProps, FieldElement } from "../../utils/types"
 
 import Field from "./Field"
 
@@ -25,15 +25,17 @@ const Styled = {
   `,
 }
 
+const FIELD_NAME_REGEX = /Field ([0-9]+(\.[0-9])*)/i
+
 type Object = Record<string, unknown>
 interface ObjectFieldProps<Value extends Object> extends FieldProps<Value> {
   // TODO: improve this typing
-  fields: Record<string, FieldComponent<any>>
+  fields: Record<string, FieldElement<any>>
 }
 
 export const ObjectField = <Value extends Object>(
   props: ObjectFieldProps<Value>,
-) => {
+): FieldElement<Value> => {
   const {
     name,
     fields,
@@ -47,7 +49,6 @@ export const ObjectField = <Value extends Object>(
     onAction,
   } = props
 
-  const hasError = !!error
   return (
     <Field
       name={name}
@@ -59,18 +60,29 @@ export const ObjectField = <Value extends Object>(
       error={error}
     >
       <Styled.Fields>
-        {Object.entries(fields).map(([fieldName, Field]) => (
-          <Field
-            key={fieldName}
-            name={fieldName}
-            value={value?.[fieldName]}
-            onChange={(val) =>
+        {Object.entries(fields).map(([fieldName, field], idx) => {
+          const numbering = FIELD_NAME_REGEX.exec(name ?? "")?.[1]
+          const fieldTitle = numbering
+            ? `Field ${numbering}.${idx}`
+            : `Field ${idx}`
+
+          return React.cloneElement(field, {
+            name: field.props.name ?? fieldTitle,
+
+            // Override these props
+            error: field.props.error, // TODO: build out error logic / validation
+            value: value?.[fieldName],
+            onChange: (val: unknown) => {
               onChange?.({ ...value, [fieldName]: val } as Value)
-            }
-            // TODO: figure out somehow
-            error=""
-          />
-        ))}
+            },
+
+            // Clear these props
+            checked: undefined,
+            onCheck: undefined,
+            ActionIcon: undefined,
+            onAction: undefined,
+          })
+        })}
       </Styled.Fields>
     </Field>
   )

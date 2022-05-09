@@ -7,7 +7,7 @@ import FieldTitle from "./FieldTitle"
 import FieldError from "./FieldError"
 
 export type Props = {
-  name: string
+  name?: string
   size: FieldSize
   error?: string
   children: React.ReactNode
@@ -42,7 +42,7 @@ export const Field = (props: Props) => {
       className={className}
     >
       <FieldTitle checked={checked} onCheck={onCheck} hasError={hasError}>
-        {name}
+        {name ?? "[Error - Naming]"}
       </FieldTitle>
       {children}
       <FieldError>{error}</FieldError>

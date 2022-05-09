@@ -140,10 +140,32 @@ const DevModal = (props: Props) => {
           name="Object Field"
           // TODO: doesn't handle nesting of ObjectField within ObjectField well
           fields={{
-            "Field 1": StringField,
-            "Field 2": NumberField,
-            "Field 3": NumberField,
-            "Field 4": StringField,
+            "Field 1": <StringField name="Field 1 (Custom Name)" />,
+            "Field 2": <NumberField />,
+            "Field 3": <NumberField />,
+            "Field 4": <StringField />,
+            "Field 5": (
+              <ObjectField
+                fields={{
+                  "Sub-Field 5a": (
+                    <StringField name="Sub-Field 5a (Custom Name)" />
+                  ),
+                  "Sub-Field 5b": <NumberField />,
+                  "Sub-Field 5c": <StringField />,
+                  "Sub-Field 5d": (
+                    <ObjectField
+                      fields={{
+                        "Sub-Field 5a": (
+                          <StringField name="Sub-Field 5a (Custom Name)" />
+                        ),
+                        "Sub-Field 5b": <NumberField />,
+                        "Sub-Field 5c": <StringField />,
+                      }}
+                    />
+                  ),
+                }}
+              />
+            ),
           }}
           value={obj}
           onChange={setObj}

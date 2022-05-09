@@ -2,7 +2,7 @@ import React from "react"
 import { FieldSize } from "./constants"
 
 export type FieldProps<Value> = {
-  name: string
+  name?: string // TODO: This should be required in the control component (`dev`)
   size?: FieldSize
   error?: string
 
@@ -15,3 +15,5 @@ export type FieldProps<Value> = {
 }
 
 export type FieldComponent<Value> = React.ComponentType<FieldProps<Value>>
+
+export type FieldElement<Value> = React.ReactElement<FieldProps<Value>>

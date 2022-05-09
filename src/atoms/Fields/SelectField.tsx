@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 import { FieldSize } from "../../utils/constants"
-import { FieldProps } from "../../utils/types"
+import { FieldProps, FieldElement } from "../../utils/types"
 import { ChevronDownIcon } from "../Icons"
 
 import { ContainerStyle } from "./shared"
@@ -28,7 +28,9 @@ const Styled = {
   Option: styled.option``,
 }
 
-export const SelectField = <Value extends string>(props: FieldProps<Value>) => {
+export const SelectField = <Value extends string>(
+  props: FieldProps<Value>,
+): FieldElement<Value> => {
   const {
     name,
     size,

@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 import { FieldSize } from "../../utils/constants"
-import { FieldProps } from "../../utils/types"
+import { FieldProps, FieldElement } from "../../utils/types"
 
 import { ContainerStyle, AutocompleteProps } from "./shared"
 import Field from "./Field"
@@ -13,7 +13,9 @@ const Styled = {
   `,
 }
 
-export const StringField = (props: FieldProps<string>) => {
+export const StringField = (
+  props: FieldProps<string>,
+): FieldElement<string> => {
   const {
     name,
     size,
