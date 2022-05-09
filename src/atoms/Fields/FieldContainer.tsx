@@ -44,13 +44,14 @@ type Props = {
   ActionIcon?: JSX.Element
   onAction?: () => void
   children?: React.ReactNode
+  className?: string
 }
 
 const FieldContainer = (props: Props) => {
-  const { size, ActionIcon, onAction, children } = props
+  const { size, ActionIcon, onAction, children, className } = props
   const Field = getFieldFromSize(size)
   return (
-    <Field>
+    <Field className={className}>
       {children}
       {ActionIcon ? (
         <Styled.IconButton Icon={ActionIcon} onClick={onAction} />

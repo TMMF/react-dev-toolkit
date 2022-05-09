@@ -162,7 +162,7 @@ const DevModal = (props: Props) => {
         <ArrayField
           name="Array Field"
           // TODO: doesn't handle nesting of ObjectField within ObjectField well
-          Field={StringField}
+          FieldComp={StringField}
           value={arr}
           onChange={setArr}
           checked={checked}

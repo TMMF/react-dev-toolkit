@@ -1,15 +1,12 @@
 import * as React from "react"
 
 import { FieldSize } from "../../utils/constants"
-import { FieldComponent } from "../../utils/types"
+import { FieldProps } from "../../utils/types"
 
 import NumberInput from "./Inputs/NumberInput"
+import Field from "./Field"
 
-import FieldContainer from "./FieldContainer"
-import FieldTitle from "./FieldTitle"
-import FieldError from "./FieldError"
-
-export const NumberField: FieldComponent<number> = (props) => {
+export const NumberField = (props: FieldProps<number>) => {
   const {
     name,
     size,
@@ -24,17 +21,17 @@ export const NumberField: FieldComponent<number> = (props) => {
 
   const hasError = !!error
   return (
-    <FieldContainer
+    <Field
+      name={name}
       size={size ?? FieldSize.Small}
+      checked={checked}
+      onCheck={onCheck}
       ActionIcon={ActionIcon}
       onAction={onAction}
+      error={error}
     >
-      <FieldTitle checked={checked} onCheck={onCheck} hasError={hasError}>
-        {name}
-      </FieldTitle>
       <NumberInput value={value} onChange={onChange} hasError={hasError} />
-      <FieldError>{error}</FieldError>
-    </FieldContainer>
+    </Field>
   )
 }
 

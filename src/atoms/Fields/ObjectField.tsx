@@ -4,9 +4,7 @@ import styled from "styled-components"
 import { FieldSize } from "../../utils/constants"
 import { FieldProps, FieldComponent } from "../../utils/types"
 
-import FieldContainer from "./FieldContainer"
-import FieldTitle from "./FieldTitle"
-import FieldError from "./FieldError"
+import Field from "./Field"
 
 const Styled = {
   Fields: styled.div`
@@ -51,14 +49,15 @@ export const ObjectField = <Value extends Object>(
 
   const hasError = !!error
   return (
-    <FieldContainer
+    <Field
+      name={name}
       size={size ?? FieldSize.Large}
+      checked={checked}
+      onCheck={onCheck}
       ActionIcon={ActionIcon}
       onAction={onAction}
+      error={error}
     >
-      <FieldTitle checked={checked} onCheck={onCheck} hasError={hasError}>
-        {name}
-      </FieldTitle>
       <Styled.Fields>
         {Object.entries(fields).map(([fieldName, Field]) => (
           <Field
@@ -73,8 +72,7 @@ export const ObjectField = <Value extends Object>(
           />
         ))}
       </Styled.Fields>
-      <FieldError>{error}</FieldError>
-    </FieldContainer>
+    </Field>
   )
 }
 

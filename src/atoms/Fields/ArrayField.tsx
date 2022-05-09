@@ -6,13 +6,13 @@ import { FieldProps, FieldComponent } from "../../utils/types"
 import { SquarePlusIcon, SquareMinusIcon } from "../Icons"
 import IconButton from "../IconButton"
 
-import FieldContainer from "./FieldContainer"
-import FieldTitle from "./FieldTitle"
-import FieldError from "./FieldError"
+import Field from "./Field"
 
 const Styled = {
-  FieldTitle: styled(FieldTitle)`
-    z-index: 1;
+  Field: styled(Field)`
+    & > label {
+      z-index: 1;
+    }
   `,
   Fields: styled.div`
     padding: 8px;
@@ -45,7 +45,7 @@ const Styled = {
 type Array = unknown[]
 interface ArrayFieldProps<Value extends Array> extends FieldProps<Value> {
   // TODO: improve this typing
-  Field: FieldComponent<any>
+  FieldComp: FieldComponent<any>
 }
 
 export const ArrayField = <Value extends unknown[]>(
@@ -53,7 +53,7 @@ export const ArrayField = <Value extends unknown[]>(
 ) => {
   const {
     name,
-    Field,
+    FieldComp,
     size,
     value,
     onChange,
@@ -89,21 +89,18 @@ export const ArrayField = <Value extends unknown[]>(
 
   const hasError = !!error
   return (
-    <FieldContainer
+    <Styled.Field
+      name={name}
       size={size ?? FieldSize.Large}
+      checked={checked}
+      onCheck={onCheck}
       ActionIcon={ActionIcon}
       onAction={onAction}
+      error={error}
     >
-      <Styled.FieldTitle
-        checked={checked}
-        onCheck={onCheck}
-        hasError={hasError}
-      >
-        {name}
-      </Styled.FieldTitle>
       <Styled.Fields ref={ref}>
         {value?.map((_, idx) => (
-          <Field
+          <FieldComp
             key={idx}
             name={`Index ${idx}`}
             value={value[idx]}
@@ -122,8 +119,7 @@ export const ArrayField = <Value extends unknown[]>(
         ))}
         <Styled.IconButton Icon={<SquarePlusIcon />} onClick={onAdd} />
       </Styled.Fields>
-      <FieldError>{error}</FieldError>
-    </FieldContainer>
+    </Styled.Field>
   )
 }
 

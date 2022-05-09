@@ -4,10 +4,7 @@ import { FieldSize } from "../../utils/constants"
 import { FieldProps } from "../../utils/types"
 
 import SelectInput from "./Inputs/SelectInput"
-
-import FieldContainer from "./FieldContainer"
-import FieldTitle from "./FieldTitle"
-import FieldError from "./FieldError"
+import Field from "./Field"
 
 export const SelectField = <Value extends string>(props: FieldProps<Value>) => {
   const {
@@ -24,17 +21,17 @@ export const SelectField = <Value extends string>(props: FieldProps<Value>) => {
 
   const hasError = !!error
   return (
-    <FieldContainer
+    <Field
+      name={name}
       size={size ?? FieldSize.Small}
+      checked={checked}
+      onCheck={onCheck}
       ActionIcon={ActionIcon}
       onAction={onAction}
+      error={error}
     >
-      <FieldTitle checked={checked} onCheck={onCheck} hasError={hasError}>
-        {name}
-      </FieldTitle>
       <SelectInput value={value} onChange={onChange} hasError={hasError} />
-      <FieldError>{error}</FieldError>
-    </FieldContainer>
+    </Field>
   )
 }
 

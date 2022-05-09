@@ -1,15 +1,12 @@
 import * as React from "react"
 
 import { FieldSize } from "../../utils/constants"
-import { FieldComponent } from "../../utils/types"
+import { FieldProps } from "../../utils/types"
 
 import BooleanInput from "./Inputs/BooleanInput"
+import Field from "./Field"
 
-import FieldContainer from "./FieldContainer"
-import FieldTitle from "./FieldTitle"
-import FieldError from "./FieldError"
-
-export const BooleanField: FieldComponent<boolean> = (props) => {
+export const BooleanField = (props: FieldProps<boolean>) => {
   const {
     name,
     size,
@@ -24,17 +21,17 @@ export const BooleanField: FieldComponent<boolean> = (props) => {
 
   const hasError = !!error
   return (
-    <FieldContainer
+    <Field
+      name={name}
       size={size ?? FieldSize.Small}
+      checked={checked}
+      onCheck={onCheck}
       ActionIcon={ActionIcon}
       onAction={onAction}
+      error={error}
     >
-      <FieldTitle checked={checked} onCheck={onCheck} hasError={hasError}>
-        {name}
-      </FieldTitle>
       <BooleanInput value={value} onChange={onChange} hasError={hasError} />
-      <FieldError>{error}</FieldError>
-    </FieldContainer>
+    </Field>
   )
 }
 
