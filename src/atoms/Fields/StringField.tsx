@@ -46,7 +46,7 @@ export const StringField = (
     >
       <Styled.Input
         type="text"
-        value={value}
+        value={value ?? ""}
         onChange={_onChange}
         $hasError={hasError}
         {...AutocompleteProps}

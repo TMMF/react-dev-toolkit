@@ -30,6 +30,7 @@ export type DevControl = {
 
 export const dev = (options: DevOptions) => {
   // TODO: this should probably be a symbol?
+  // TODO: need to make this persist between hot reloading to prevent doubling
   const id = `TODO-generate-fn-${Math.round(Math.random() * 1000)}`
 
   const ControlWrapper = React.memo(() => {
@@ -66,7 +67,7 @@ export const dev = (options: DevOptions) => {
     [id]: {
       ...result,
       activated: false,
-      value: undefined, // TODO: figure out default values
+      value: null, // TODO: figure out default values
     },
   }))
 

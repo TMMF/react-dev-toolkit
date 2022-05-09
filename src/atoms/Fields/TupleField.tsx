@@ -67,11 +67,12 @@ export const TupleField = <Value extends Array>(
             error: field.props.error, // TODO: build out error logic / validation
             value: value?.[idx],
             onChange: (val: unknown) => {
-              if (value && onChange) {
+              if (onChange) {
+                const _value = value ?? []
                 onChange([
-                  ...value.slice(0, idx),
+                  ..._value.slice(0, idx),
                   val,
-                  ...value.slice(idx + 1),
+                  ..._value.slice(idx + 1),
                 ] as Value)
               }
             },

@@ -68,8 +68,9 @@ export const ArrayField = <Value extends unknown[]>(
 
   const onAdd = React.useCallback(() => {
     // TODO: this should fill with the default for whatever field passed in
-    if (value && onChange) {
-      onChange([...value, ""] as Value)
+    if (onChange) {
+      const _value = value ?? []
+      onChange([..._value, ""] as Value)
     }
 
     // Place in a timeout to have the render happen before the scrolling
@@ -80,8 +81,9 @@ export const ArrayField = <Value extends unknown[]>(
 
   const onDelete = React.useCallback(
     (idx: number) => () => {
-      if (value && onChange) {
-        onChange([...value.slice(0, idx), ...value.slice(idx + 1)] as Value)
+      if (onChange) {
+        const _value = value ?? []
+        onChange([..._value.slice(0, idx), ..._value.slice(idx + 1)] as Value)
       }
     },
     [onChange, value],
@@ -106,10 +108,11 @@ export const ArrayField = <Value extends unknown[]>(
             error: field.props.error, // TODO: build out error logic / validation
             value: value[idx],
             onChange: (val: unknown) => {
+              const _value = value ?? []
               onChange?.([
-                ...value.slice(0, idx),
+                ..._value.slice(0, idx),
                 val,
-                ...value.slice(idx + 1),
+                ..._value.slice(idx + 1),
               ] as Value)
             },
             ActionIcon: <SquareMinusIcon />,

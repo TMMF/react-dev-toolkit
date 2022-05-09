@@ -57,7 +57,7 @@ export const NumberField = (
     >
       <Styled.Input
         type="number"
-        value={value?.toString()}
+        value={value?.toString() ?? ""}
         onChange={_onChange}
         $hasError={hasError}
         {...AutocompleteProps}

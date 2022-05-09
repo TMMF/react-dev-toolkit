@@ -65,7 +65,11 @@ export const SelectField = <Value extends string>(
       onAction={onAction}
       error={error}
     >
-      <Styled.Select value={value} onChange={_onChange} $hasError={hasError}>
+      <Styled.Select
+        value={value ?? ""}
+        onChange={_onChange}
+        $hasError={hasError}
+      >
         {options.map((val) => (
           <Styled.Option key={val} value={val}>
             {val}

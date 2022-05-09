@@ -11,6 +11,16 @@ import {
   ArrayField,
 } from "@TMMF/react-dev-toolkit"
 
+// TODO: first fix object / array fields to allow editing
+
+// TODO: maybe instead have `dev(<StringField />)`. Then all options are just props?
+// dev(<StringField name="Test Title" />)
+// dev(<NumberField name="Test Title" validation={undefined} />)
+// dev(<NumberField name="Test Title" size={FieldSize.Large} />)
+// etc
+// ^ This is better since now the options are not split in two places, but just all within the component
+// props
+
 const useDevField0 = dev({
   title: "Test Title Value 3",
   control: <NumberField />,
@@ -33,7 +43,7 @@ const useDevField3 = dev({
   control: (
     <ObjectField
       fields={{
-        "Field 0": <StringField />,
+        "Field 0": <StringField name="Field 0 (Custom Name)" />,
         "Field 1": <NumberField />,
         "Field 2": <NumberField />,
         "Field 3": <StringField />,
@@ -49,7 +59,11 @@ const useDevField4 = dev({
 
 const useDevField5 = dev({
   title: "Test Tuple Value 6",
-  control: <TupleField fields={[<StringField />, <NumberField />]} />,
+  control: (
+    <TupleField
+      fields={[<StringField name="Index 0 (Custom Name)" />, <NumberField />]}
+    />
+  ),
 })
 
 const useDevField6 = dev({
