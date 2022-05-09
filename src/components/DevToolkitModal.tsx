@@ -1,7 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
 
-import Field from "../atoms/Field"
 import Fields from "../atoms/Fields/Fields"
 import Modal from "../atoms/Modal"
 import IconButton from "../atoms/IconButton"
@@ -9,6 +8,7 @@ import { SunIcon, CloseIcon, MoonIcon } from "../atoms/Icons"
 import { ColorMode } from "../utils/constants"
 import { useIds, useField } from "../utils/state"
 
+/*
 import StringField from "../atoms/Fields/StringField"
 import NumberField from "../atoms/Fields/NumberField"
 import BooleanField from "../atoms/Fields/BooleanField"
@@ -16,6 +16,7 @@ import SelectField from "../atoms/Fields/SelectField"
 import ObjectField from "../atoms/Fields/ObjectField"
 import TupleField from "../atoms/Fields/TupleField"
 import ArrayField from "../atoms/Fields/ArrayField"
+*/
 
 export const Styled = {
   TitleBar: styled.div`
@@ -42,22 +43,8 @@ export const Styled = {
 
 const DevModalField = (props: { id: string }) => {
   const { id } = props
-  const [field, updateField] = useField(id)
-
-  const onChangeCheckbox = React.useCallback(
-    (checked: boolean) => updateField({ activated: checked }),
-    [updateField],
-  )
-
-  return (
-    <Field
-      title={field.title}
-      size={field.size}
-      checked={field.activated}
-      onClickCheckbox={onChangeCheckbox}
-      control={<field.control />}
-    />
-  )
+  const [field] = useField(id)
+  return <field.control />
 }
 
 type Props = {
@@ -76,14 +63,14 @@ const DevModal = (props: Props) => {
   const ColorModeIcon = colorMode === ColorMode.Light ? SunIcon : MoonIcon
 
   // TODO: REMOVE
-  const [str, setStr] = React.useState("test")
+  /* const [str, setStr] = React.useState("test")
   const [num, setNum] = React.useState(123)
   const [bool, setBool] = React.useState(false)
   const [select, setSelect] = React.useState("Test 1")
   const [obj, setObj] = React.useState({})
   const [tuple, setTuple] = React.useState([])
   const [arr, setArr] = React.useState([])
-  const [checked, setChecked] = React.useState(false)
+  const [checked, setChecked] = React.useState(false) */
 
   return (
     <Modal>
@@ -104,6 +91,9 @@ const DevModal = (props: Props) => {
           <DevModalField key={id} id={id} />
         ))}
 
+        {/* <hr />
+        <hr />
+        <hr />
         <hr />
         <hr />
         <hr />
@@ -135,6 +125,7 @@ const DevModal = (props: Props) => {
           onChange={setSelect}
           checked={checked}
           onCheck={setChecked}
+          options={["Test 1", "Test 2", "Test 3"]}
         />
         <ObjectField
           name="Object Field"
@@ -188,7 +179,7 @@ const DevModal = (props: Props) => {
           onChange={setArr}
           checked={checked}
           onCheck={setChecked}
-        />
+        /> */}
       </Fields>
     </Modal>
   )

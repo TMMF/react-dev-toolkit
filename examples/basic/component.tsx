@@ -2,60 +2,64 @@ import * as React from "react"
 import {
   dev,
   FieldSize,
-  StringControl,
-  NumberControl,
-  ObjectControl,
-  ArrayControl,
-  TupleControl,
-  BooleanControl,
-  SelectControl,
+  StringField,
+  NumberField,
+  BooleanField,
+  SelectField,
+  ObjectField,
+  TupleField,
+  ArrayField,
 } from "@TMMF/react-dev-toolkit"
 
 const useDevField0 = dev({
   title: "Test Title Value 3",
-  control: NumberControl,
+  control: <NumberField />,
 })
 
 const useDevField1 = dev({
   title: "Test Title Value 1",
-  control: StringControl,
-  validation: undefined,
+  control: <StringField />,
+  // validation: undefined,
 })
 
 const useDevField2 = dev({
   title: "Test Title Value 2",
-  control: StringControl,
+  control: <StringField />,
   size: FieldSize.Large,
 })
 
 const useDevField3 = dev({
   title: "Test Object Value 4",
-  control: ObjectControl({
-    "Field 0": StringControl,
-    "Field 1": NumberControl,
-    "Field 2": NumberControl,
-    "Field 3": StringControl,
-  }),
+  control: (
+    <ObjectField
+      fields={{
+        "Field 0": <StringField />,
+        "Field 1": <NumberField />,
+        "Field 2": <NumberField />,
+        "Field 3": <StringField />,
+      }}
+    />
+  ),
 })
 
 const useDevField4 = dev({
   title: "Test Array Value 5",
-  control: ArrayControl(StringControl),
+  control: <ArrayField field={<StringField />} />,
 })
 
 const useDevField5 = dev({
   title: "Test Tuple Value 6",
-  control: TupleControl([StringControl, NumberControl]),
+  control: <TupleField fields={[<StringField />, <NumberField />]} />,
 })
 
 const useDevField6 = dev({
   title: "Test Boolean Value 7",
-  control: BooleanControl,
+  control: <BooleanField />,
 })
 
 const useDevField7 = dev({
   title: "Test Boolean Value 7",
-  control: SelectControl(["Val1", "Val2", "Val3"]),
+  control: <SelectField options={["Val1", "Val2", "Val3"]} />,
 })
 
 const Component = () => {

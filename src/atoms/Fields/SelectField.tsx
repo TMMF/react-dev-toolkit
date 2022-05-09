@@ -28,11 +28,16 @@ const Styled = {
   Option: styled.option``,
 }
 
+interface SelectFieldProps<Value extends string> extends FieldProps<Value> {
+  options: Value[]
+}
+
 export const SelectField = <Value extends string>(
-  props: FieldProps<Value>,
+  props: SelectFieldProps<Value>,
 ): FieldElement<Value> => {
   const {
     name,
+    options,
     size,
     value,
     onChange,
@@ -61,9 +66,11 @@ export const SelectField = <Value extends string>(
       error={error}
     >
       <Styled.Select value={value} onChange={_onChange} $hasError={hasError}>
-        <Styled.Option value="Test 1">Test 1</Styled.Option>
-        <Styled.Option value="Test 2">Test 2</Styled.Option>
-        <Styled.Option value="Test 3">Test 3</Styled.Option>
+        {options.map((val) => (
+          <Styled.Option key={val} value={val}>
+            {val}
+          </Styled.Option>
+        ))}
       </Styled.Select>
       <Styled.ChevronDownIcon />
     </Field>
