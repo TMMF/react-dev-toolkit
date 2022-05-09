@@ -1,10 +1,17 @@
 import * as React from "react"
+import styled from "styled-components"
 
 import { FieldSize } from "../../utils/constants"
 import { FieldProps } from "../../utils/types"
 
-import StringInput from "./Inputs/StringInput"
+import { ContainerStyle, AutocompleteProps } from "./shared"
 import Field from "./Field"
+
+const Styled = {
+  Input: styled.input`
+    ${ContainerStyle};
+  `,
+}
 
 export const StringField = (props: FieldProps<string>) => {
   const {
@@ -19,6 +26,11 @@ export const StringField = (props: FieldProps<string>) => {
     onAction,
   } = props
 
+  const _onChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => onChange?.(e.target.value),
+    [onChange],
+  )
+
   const hasError = !!error
   return (
     <Field
@@ -30,7 +42,13 @@ export const StringField = (props: FieldProps<string>) => {
       onAction={onAction}
       error={error}
     >
-      <StringInput value={value} onChange={onChange} hasError={hasError} />
+      <Styled.Input
+        type="text"
+        value={value}
+        onChange={_onChange}
+        $hasError={hasError}
+        {...AutocompleteProps}
+      />
     </Field>
   )
 }

@@ -1,10 +1,42 @@
 import * as React from "react"
+import styled from "styled-components"
 
 import { FieldSize } from "../../utils/constants"
 import { FieldProps } from "../../utils/types"
 
-import BooleanInput from "./Inputs/BooleanInput"
+import { ContainerStyle, AutocompleteProps } from "./shared"
 import Field from "./Field"
+
+const Styled = {
+  Root: styled.div``,
+  Input: styled.input`
+    appearance: none;
+    margin: 0;
+    height: 35px;
+    background-color: white;
+
+    &:not(:disabled):hover {
+      cursor: pointer;
+    }
+
+    ${ContainerStyle};
+  `,
+  Container: styled.div<{ $checked?: boolean }>`
+    font-size: 14px;
+    font-family: monospace;
+
+    pointer-events: none;
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    top: 8px;
+    width: 100%;
+    height: 35px;
+  `,
+}
 
 export const BooleanField = (props: FieldProps<boolean>) => {
   const {
@@ -19,6 +51,11 @@ export const BooleanField = (props: FieldProps<boolean>) => {
     onAction,
   } = props
 
+  const _onChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => onChange?.(e.target.checked),
+    [onChange],
+  )
+
   const hasError = !!error
   return (
     <Field
@@ -30,7 +67,18 @@ export const BooleanField = (props: FieldProps<boolean>) => {
       onAction={onAction}
       error={error}
     >
-      <BooleanInput value={value} onChange={onChange} hasError={hasError} />
+      <Styled.Root>
+        <Styled.Input
+          type="checkbox"
+          checked={value}
+          onChange={_onChange}
+          $hasError={hasError}
+          {...AutocompleteProps}
+        />
+        <Styled.Container $checked={value}>
+          {value ? "TRUE" : "FALSE"}
+        </Styled.Container>
+      </Styled.Root>
     </Field>
   )
 }

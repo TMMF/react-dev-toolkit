@@ -21,3 +21,10 @@ export const ContainerStyle = css<{ $hasError?: boolean }>`
     padding: 7px;
   }
 `
+
+// Prevent Autocomplete from attempting to insert into the fields
+export const AutocompleteProps = {
+  autocomplete: "off",
+  "data-lpignore": "true",
+  "data-form-type": "other",
+}

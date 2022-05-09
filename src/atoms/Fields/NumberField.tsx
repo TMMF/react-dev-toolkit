@@ -1,10 +1,27 @@
 import * as React from "react"
+import styled from "styled-components"
 
 import { FieldSize } from "../../utils/constants"
 import { FieldProps } from "../../utils/types"
 
-import NumberInput from "./Inputs/NumberInput"
+import { ContainerStyle, AutocompleteProps } from "./shared"
 import Field from "./Field"
+
+const Styled = {
+  Input: styled.input`
+    ${ContainerStyle};
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
+  `,
+}
 
 export const NumberField = (props: FieldProps<number>) => {
   const {
@@ -19,6 +36,12 @@ export const NumberField = (props: FieldProps<number>) => {
     onAction,
   } = props
 
+  const _onChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      onChange?.(e.target.valueAsNumber),
+    [onChange, value],
+  )
+
   const hasError = !!error
   return (
     <Field
@@ -30,7 +53,13 @@ export const NumberField = (props: FieldProps<number>) => {
       onAction={onAction}
       error={error}
     >
-      <NumberInput value={value} onChange={onChange} hasError={hasError} />
+      <Styled.Input
+        type="number"
+        value={value?.toString()}
+        onChange={_onChange}
+        $hasError={hasError}
+        {...AutocompleteProps}
+      />
     </Field>
   )
 }
