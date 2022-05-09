@@ -1,6 +1,7 @@
 import * as React from "react"
 
 import { FieldSize } from "../../utils/constants"
+import { FieldProps } from "../../utils/types"
 
 import SelectInput from "./Inputs/SelectInput"
 
@@ -8,20 +9,7 @@ import FieldContainer from "./FieldContainer"
 import FieldTitle from "./FieldTitle"
 import FieldError from "./FieldError"
 
-type Props<Values extends string> = {
-  name: string
-  size?: FieldSize
-  value?: Values
-  onChange?: (value: Values) => void
-  checked?: boolean
-  onCheck?: (checked: boolean) => void
-  error?: string
-
-  Icon?: JSX.Element
-  onAction?: () => void
-}
-
-export const SelectField = <Values extends string>(props: Props<Values>) => {
+export const SelectField = <Value extends string>(props: FieldProps<Value>) => {
   const {
     name,
     size,
@@ -30,7 +18,7 @@ export const SelectField = <Values extends string>(props: Props<Values>) => {
     checked,
     onCheck,
     error,
-    Icon,
+    ActionIcon,
     onAction,
   } = props
 
@@ -38,7 +26,7 @@ export const SelectField = <Values extends string>(props: Props<Values>) => {
   return (
     <FieldContainer
       size={size ?? FieldSize.Small}
-      Icon={Icon}
+      ActionIcon={ActionIcon}
       onAction={onAction}
     >
       <FieldTitle checked={checked} onCheck={onCheck} hasError={hasError}>

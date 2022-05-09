@@ -7,10 +7,10 @@ const Styled = {
   Checkbox: styled(Checkbox)<{ $hasError?: boolean }>`
     color: ${(props) => (props.$hasError ? "#ff6961" : null)};
   `,
-  FieldTitle: styled.label<{ $hasError?: boolean }>`
+  FieldTitle: styled.label<{ $hasCheckbox?: boolean; $hasError?: boolean }>`
     font-family: monospace;
     font-size: 12px;
-    cursor: pointer;
+    cursor: ${(props) => (props.$hasCheckbox ? "pointer" : null)};
 
     display: inline-flex;
     align-items: center;
@@ -45,9 +45,14 @@ type Props = {
 const FieldTitle = (props: Props) => {
   const { children, checked, onCheck, hasError, className } = props
 
+  const hasCheckbox = checked != null && onCheck != null
   return (
-    <Styled.FieldTitle className={className} $hasError={hasError}>
-      {checked != null && onCheck != null ? (
+    <Styled.FieldTitle
+      className={className}
+      $hasCheckbox={hasCheckbox}
+      $hasError={hasError}
+    >
+      {hasCheckbox ? (
         <Styled.Checkbox
           checked={checked}
           onCheck={onCheck}

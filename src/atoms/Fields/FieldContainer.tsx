@@ -41,18 +41,20 @@ const getFieldFromSize = (size: FieldSize) => {
 
 type Props = {
   size: FieldSize
-  Icon?: JSX.Element
+  ActionIcon?: JSX.Element
   onAction?: () => void
   children?: React.ReactNode
 }
 
 const FieldContainer = (props: Props) => {
-  const { size, Icon, onAction, children } = props
+  const { size, ActionIcon, onAction, children } = props
   const Field = getFieldFromSize(size)
   return (
     <Field>
       {children}
-      {Icon ? <Styled.IconButton Icon={Icon} onClick={onAction} /> : null}
+      {ActionIcon ? (
+        <Styled.IconButton Icon={ActionIcon} onClick={onAction} />
+      ) : null}
     </Field>
   )
 }

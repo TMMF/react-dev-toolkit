@@ -2,11 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 import { FieldSize } from "../../utils/constants"
-
-import StringField from "./StringField"
-import NumberField from "./NumberField"
-import BooleanField from "./BooleanField"
-import SelectField from "./SelectField"
+import { FieldProps, FieldComponent } from "../../utils/types"
 
 import FieldContainer from "./FieldContainer"
 import FieldTitle from "./FieldTitle"
@@ -31,30 +27,35 @@ const Styled = {
   `,
 }
 
-type Field =
-  | typeof StringField
-  | typeof NumberField
-  | typeof BooleanField
-  | typeof SelectField
-  | typeof TupleField
-
-type Props<Value extends unknown[]> = {
-  name: string
-  fields: Field[]
-  size?: FieldSize
-  value?: Value
-  onChange?: (value: Value) => void
-  checked?: boolean
-  onCheck?: (checked: boolean) => void
-  error?: string
+type Array = unknown[]
+interface TupleFieldProps<Value extends Array> extends FieldProps<Value> {
+  // TODO: improve this typing
+  fields: FieldComponent<any>[]
 }
 
-export const TupleField = <Value extends unknown[]>(props: Props<Value>) => {
-  const { name, fields, size, value, onChange, checked, onCheck, error } = props
+export const TupleField = <Value extends Array>(
+  props: TupleFieldProps<Value>,
+) => {
+  const {
+    name,
+    fields,
+    size,
+    value,
+    onChange,
+    checked,
+    onCheck,
+    error,
+    ActionIcon,
+    onAction,
+  } = props
 
   const hasError = !!error
   return (
-    <FieldContainer size={size ?? FieldSize.Large}>
+    <FieldContainer
+      size={size ?? FieldSize.Large}
+      ActionIcon={ActionIcon}
+      onAction={onAction}
+    >
       <FieldTitle checked={checked} onCheck={onCheck} hasError={hasError}>
         {name}
       </FieldTitle>
@@ -63,10 +64,17 @@ export const TupleField = <Value extends unknown[]>(props: Props<Value>) => {
           <Field
             key={idx}
             name={`Index ${idx}`}
-            value={value[idx]}
-            onChange={(val) =>
-              onChange([...value?.slice(0, idx), val, ...value?.slice(idx + 1)])
-            }
+            value={value?.[idx]}
+            onChange={(val) => {
+              if (value && onChange) {
+                onChange([
+                  ...value.slice(0, idx),
+                  val,
+                  ...value.slice(idx + 1),
+                ] as Value)
+              }
+            }}
+            // TODO: figure out somehow
             error=""
           />
         ))}

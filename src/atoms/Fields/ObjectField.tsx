@@ -2,11 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 import { FieldSize } from "../../utils/constants"
-
-import StringField from "./StringField"
-import NumberField from "./NumberField"
-import BooleanField from "./BooleanField"
-import SelectField from "./SelectField"
+import { FieldProps, FieldComponent } from "../../utils/types"
 
 import FieldContainer from "./FieldContainer"
 import FieldTitle from "./FieldTitle"
@@ -32,30 +28,34 @@ const Styled = {
 }
 
 type Object = Record<string, unknown>
-type Field =
-  | typeof StringField
-  | typeof NumberField
-  | typeof BooleanField
-  | typeof SelectField
-  | typeof ObjectField
-
-type Props<Value extends Object> = {
-  name: string
-  fields: Record<string, Field>
-  size?: FieldSize
-  value?: Value
-  onChange?: (value: Value) => void
-  checked?: boolean
-  onCheck?: (checked: boolean) => void
-  error?: string
+interface ObjectFieldProps<Value extends Object> extends FieldProps<Value> {
+  // TODO: improve this typing
+  fields: Record<string, FieldComponent<any>>
 }
 
-export const ObjectField = <Value extends Object>(props: Props<Value>) => {
-  const { name, fields, size, value, onChange, checked, onCheck, error } = props
+export const ObjectField = <Value extends Object>(
+  props: ObjectFieldProps<Value>,
+) => {
+  const {
+    name,
+    fields,
+    size,
+    value,
+    onChange,
+    checked,
+    onCheck,
+    error,
+    ActionIcon,
+    onAction,
+  } = props
 
   const hasError = !!error
   return (
-    <FieldContainer size={size ?? FieldSize.Large}>
+    <FieldContainer
+      size={size ?? FieldSize.Large}
+      ActionIcon={ActionIcon}
+      onAction={onAction}
+    >
       <FieldTitle checked={checked} onCheck={onCheck} hasError={hasError}>
         {name}
       </FieldTitle>
@@ -64,8 +64,11 @@ export const ObjectField = <Value extends Object>(props: Props<Value>) => {
           <Field
             key={fieldName}
             name={fieldName}
-            value={value[fieldName]}
-            onChange={(val) => onChange({ ...value, [fieldName]: val })}
+            value={value?.[fieldName]}
+            onChange={(val) =>
+              onChange?.({ ...value, [fieldName]: val } as Value)
+            }
+            // TODO: figure out somehow
             error=""
           />
         ))}
