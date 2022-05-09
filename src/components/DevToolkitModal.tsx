@@ -138,7 +138,6 @@ const DevModal = (props: Props) => {
         />
         <ObjectField
           name="Object Field"
-          // TODO: doesn't handle nesting of ObjectField within ObjectField well
           fields={{
             "Field 1": <StringField name="Field 1 (Custom Name)" />,
             "Field 2": <NumberField />,
@@ -152,17 +151,6 @@ const DevModal = (props: Props) => {
                   ),
                   "Sub-Field 5b": <NumberField />,
                   "Sub-Field 5c": <StringField />,
-                  "Sub-Field 5d": (
-                    <ObjectField
-                      fields={{
-                        "Sub-Field 5a": (
-                          <StringField name="Sub-Field 5a (Custom Name)" />
-                        ),
-                        "Sub-Field 5b": <NumberField />,
-                        "Sub-Field 5c": <StringField />,
-                      }}
-                    />
-                  ),
                 }}
               />
             ),
@@ -174,8 +162,19 @@ const DevModal = (props: Props) => {
         />
         <TupleField
           name="Tuple Field"
-          // TODO: doesn't handle nesting of ObjectField within ObjectField well
-          fields={[StringField, NumberField, NumberField, StringField]}
+          fields={[
+            <StringField name="Index 1 (Custom Name)" />,
+            <NumberField />,
+            <NumberField />,
+            <StringField />,
+            <ObjectField
+              fields={{
+                "Sub-Field 5a": <StringField />,
+                "Sub-Field 5b": <NumberField />,
+                "Sub-Field 5c": <StringField />,
+              }}
+            />,
+          ]}
           value={tuple}
           onChange={setTuple}
           checked={checked}
@@ -183,8 +182,8 @@ const DevModal = (props: Props) => {
         />
         <ArrayField
           name="Array Field"
-          // TODO: doesn't handle nesting of ObjectField within ObjectField well
-          FieldComp={StringField}
+          // TODO: delete icon looks weird on objects / tuples / arrays
+          field={<StringField />}
           value={arr}
           onChange={setArr}
           checked={checked}

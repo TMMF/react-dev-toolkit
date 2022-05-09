@@ -25,8 +25,6 @@ const Styled = {
   `,
 }
 
-const FIELD_NAME_REGEX = /Field ([0-9]+(\.[0-9])*)/i
-
 type Object = Record<string, unknown>
 interface ObjectFieldProps<Value extends Object> extends FieldProps<Value> {
   // TODO: improve this typing
@@ -61,26 +59,25 @@ export const ObjectField = <Value extends Object>(
     >
       <Styled.Fields>
         {Object.entries(fields).map(([fieldName, field], idx) => {
-          const numbering = FIELD_NAME_REGEX.exec(name ?? "")?.[1]
-          const fieldTitle = numbering
-            ? `Field ${numbering}.${idx}`
-            : `Field ${idx}`
-
           return React.cloneElement(field, {
-            name: field.props.name ?? fieldTitle,
+            // Add defaults to props
+            name: field.props.name ?? fieldName,
 
-            // Override these props
+            // Override props
             error: field.props.error, // TODO: build out error logic / validation
             value: value?.[fieldName],
             onChange: (val: unknown) => {
               onChange?.({ ...value, [fieldName]: val } as Value)
             },
 
-            // Clear these props
+            // Clear props
             checked: undefined,
             onCheck: undefined,
             ActionIcon: undefined,
             onAction: undefined,
+
+            // Add props
+            key: fieldName,
           })
         })}
       </Styled.Fields>

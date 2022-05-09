@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 import { FieldSize } from "../../utils/constants"
-import { FieldProps, FieldComponent } from "../../utils/types"
+import { FieldProps, FieldElement } from "../../utils/types"
 
 import Field from "./Field"
 
@@ -28,7 +28,7 @@ const Styled = {
 type Array = unknown[]
 interface TupleFieldProps<Value extends Array> extends FieldProps<Value> {
   // TODO: improve this typing
-  fields: FieldComponent<any>[]
+  fields: FieldElement<any>[]
 }
 
 export const TupleField = <Value extends Array>(
@@ -47,7 +47,6 @@ export const TupleField = <Value extends Array>(
     onAction,
   } = props
 
-  const hasError = !!error
   return (
     <Field
       name={name}
@@ -59,12 +58,15 @@ export const TupleField = <Value extends Array>(
       error={error}
     >
       <Styled.Fields>
-        {fields.map((Field, idx) => (
-          <Field
-            key={idx}
-            name={`Index ${idx}`}
-            value={value?.[idx]}
-            onChange={(val) => {
+        {fields.map((field, idx) => {
+          return React.cloneElement(field, {
+            // Add defaults to props
+            name: field.props.name ?? `Index ${idx}`,
+
+            // Override props
+            error: field.props.error, // TODO: build out error logic / validation
+            value: value?.[idx],
+            onChange: (val: unknown) => {
               if (value && onChange) {
                 onChange([
                   ...value.slice(0, idx),
@@ -72,11 +74,18 @@ export const TupleField = <Value extends Array>(
                   ...value.slice(idx + 1),
                 ] as Value)
               }
-            }}
-            // TODO: figure out somehow
-            error=""
-          />
-        ))}
+            },
+
+            // Clear props
+            checked: undefined,
+            onCheck: undefined,
+            ActionIcon: undefined,
+            onAction: undefined,
+
+            // Add props
+            key: idx,
+          })
+        })}
       </Styled.Fields>
     </Field>
   )

@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 import { FieldSize } from "../../utils/constants"
-import { FieldProps, FieldComponent } from "../../utils/types"
+import { FieldProps, FieldElement } from "../../utils/types"
 import { SquarePlusIcon, SquareMinusIcon } from "../Icons"
 import IconButton from "../IconButton"
 
@@ -45,7 +45,7 @@ const Styled = {
 type Array = unknown[]
 interface ArrayFieldProps<Value extends Array> extends FieldProps<Value> {
   // TODO: improve this typing
-  FieldComp: FieldComponent<any>
+  field: FieldElement<any>
 }
 
 export const ArrayField = <Value extends unknown[]>(
@@ -53,7 +53,7 @@ export const ArrayField = <Value extends unknown[]>(
 ) => {
   const {
     name,
-    FieldComp,
+    field,
     size,
     value,
     onChange,
@@ -99,24 +99,30 @@ export const ArrayField = <Value extends unknown[]>(
       error={error}
     >
       <Styled.Fields ref={ref}>
-        {value?.map((_, idx) => (
-          <FieldComp
-            key={idx}
-            name={`Index ${idx}`}
-            value={value[idx]}
-            onChange={(val) =>
+        {value?.map((_, idx) => {
+          return React.cloneElement(field, {
+            // Override props
+            name: `Index ${idx}`,
+            error: field.props.error, // TODO: build out error logic / validation
+            value: value[idx],
+            onChange: (val: unknown) => {
               onChange?.([
                 ...value.slice(0, idx),
                 val,
                 ...value.slice(idx + 1),
               ] as Value)
-            }
-            ActionIcon={<SquareMinusIcon />}
-            onAction={onDelete(idx)}
-            // TODO: figure out somehow
-            error=""
-          />
-        ))}
+            },
+            ActionIcon: <SquareMinusIcon />,
+            onAction: onDelete(idx),
+
+            // Clear props
+            checked: undefined,
+            onCheck: undefined,
+
+            // Add props
+            key: idx,
+          })
+        })}
         <Styled.IconButton Icon={<SquarePlusIcon />} onClick={onAdd} />
       </Styled.Fields>
     </Styled.Field>

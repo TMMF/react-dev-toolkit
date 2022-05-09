@@ -5,6 +5,7 @@ export type FieldProps<Value> = {
   name?: string // TODO: This should be required in the control component (`dev`)
   size?: FieldSize
   error?: string
+  // TODO: add default here? or in control?
 
   value?: Value
   onChange?: (value: Value) => void
