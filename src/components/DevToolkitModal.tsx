@@ -8,16 +8,6 @@ import { SunIcon, CloseIcon, MoonIcon } from "../atoms/Icons"
 import { ColorMode } from "../utils/constants"
 import { useIds, useField } from "../utils/state"
 
-/*
-import StringField from "../atoms/Fields/StringField"
-import NumberField from "../atoms/Fields/NumberField"
-import BooleanField from "../atoms/Fields/BooleanField"
-import SelectField from "../atoms/Fields/SelectField"
-import ObjectField from "../atoms/Fields/ObjectField"
-import TupleField from "../atoms/Fields/TupleField"
-import ArrayField from "../atoms/Fields/ArrayField"
-*/
-
 export const Styled = {
   TitleBar: styled.div`
     display: flex;
@@ -62,16 +52,6 @@ const DevModal = (props: Props) => {
 
   const ColorModeIcon = colorMode === ColorMode.Light ? SunIcon : MoonIcon
 
-  // TODO: REMOVE
-  /* const [str, setStr] = React.useState("test")
-  const [num, setNum] = React.useState(123)
-  const [bool, setBool] = React.useState(false)
-  const [select, setSelect] = React.useState("Test 1")
-  const [obj, setObj] = React.useState({})
-  const [tuple, setTuple] = React.useState([])
-  const [arr, setArr] = React.useState([])
-  const [checked, setChecked] = React.useState(false) */
-
   return (
     <Modal>
       <Styled.TitleBar>
@@ -90,96 +70,6 @@ const DevModal = (props: Props) => {
         {ids.map((id) => (
           <DevModalField key={id} id={id} />
         ))}
-
-        {/* <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-
-        <StringField
-          name="String Field"
-          value={str}
-          onChange={setStr}
-          checked={checked}
-          onCheck={setChecked}
-        />
-        <NumberField
-          name="Number Field"
-          value={num}
-          onChange={setNum}
-          checked={checked}
-          onCheck={setChecked}
-        />
-        <BooleanField
-          name="Boolean Field"
-          value={bool}
-          onChange={setBool}
-          checked={checked}
-          onCheck={setChecked}
-        />
-        <SelectField
-          name="Select Field"
-          value={select}
-          onChange={setSelect}
-          checked={checked}
-          onCheck={setChecked}
-          options={["Test 1", "Test 2", "Test 3"]}
-        />
-        <ObjectField
-          name="Object Field"
-          fields={{
-            "Field 1": <StringField name="Field 1 (Custom Name)" />,
-            "Field 2": <NumberField />,
-            "Field 3": <NumberField />,
-            "Field 4": <StringField />,
-            "Field 5": (
-              <ObjectField
-                fields={{
-                  "Sub-Field 5a": (
-                    <StringField name="Sub-Field 5a (Custom Name)" />
-                  ),
-                  "Sub-Field 5b": <NumberField />,
-                  "Sub-Field 5c": <StringField />,
-                }}
-              />
-            ),
-          }}
-          value={obj}
-          onChange={setObj}
-          checked={checked}
-          onCheck={setChecked}
-        />
-        <TupleField
-          name="Tuple Field"
-          fields={[
-            <StringField name="Index 1 (Custom Name)" />,
-            <NumberField />,
-            <NumberField />,
-            <StringField />,
-            <ObjectField
-              fields={{
-                "Sub-Field 5a": <StringField />,
-                "Sub-Field 5b": <NumberField />,
-                "Sub-Field 5c": <StringField />,
-              }}
-            />,
-          ]}
-          value={tuple}
-          onChange={setTuple}
-          checked={checked}
-          onCheck={setChecked}
-        />
-        <ArrayField
-          name="Array Field"
-          // TODO: delete icon looks weird on objects / tuples / arrays
-          field={<StringField />}
-          value={arr}
-          onChange={setArr}
-          checked={checked}
-          onCheck={setChecked}
-        /> */}
       </Fields>
     </Modal>
   )
