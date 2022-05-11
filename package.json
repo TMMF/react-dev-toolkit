@@ -7,9 +7,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "example:basic": "parcel examples/basic/index.html",
-    "example:comprehensive": "parcel examples/comprehensive/index.html"
+    "compile": "",
+    "example:basic": "parcel --no-cache examples/basic/index.html",
+    "example:comprehensive": "parcel --no-cache examples/comprehensive/index.html"
   },
   "repository": {
     "type": "git",

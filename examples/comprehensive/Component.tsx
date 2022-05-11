@@ -11,11 +11,11 @@ import {
   ArrayControl,
 } from "@TMMF/react-dev-toolkit"
 
-const useDevField0 = dev(NumberControl({ name: "Test Title Value 0" }))
+const useDevField0 = dev(NumberControl({ name: "Number Value [0]" }))
 
 const useDevField1 = dev(
   StringControl({
-    name: "Test Title Value 1",
+    name: "String Value [1]",
     // validation: undefined,
     defaultValue: "test",
   }),
@@ -23,14 +23,14 @@ const useDevField1 = dev(
 
 const useDevField2 = dev(
   StringControl({
-    name: "Test Title Value 2",
+    name: "String Value [2]",
     size: FieldSize.Large,
   }),
 )
 
 const useDevField3 = dev(
   ObjectControl({
-    name: "Test Object Value 3",
+    name: "Object Value [3]",
     fields: {
       "Field 0": StringControl({ name: "Field 0 (Custom Name)" }),
       "Field 1": NumberControl(),
@@ -41,12 +41,12 @@ const useDevField3 = dev(
 )
 
 const useDevField4 = dev(
-  ArrayControl({ name: "Test Array Value 4", field: StringControl() }),
+  ArrayControl({ name: "Array Value [4]", field: StringControl() }),
 )
 
 const useDevField5 = dev(
   TupleControl({
-    name: "Test Tuple Value 5",
+    name: "Tuple Value [5]",
     fields: [
       StringControl({ name: "Index 0 (Custom Name)" }),
       NumberControl(),
@@ -54,11 +54,11 @@ const useDevField5 = dev(
   }),
 )
 
-const useDevField6 = dev(BooleanControl({ name: "Test Boolean Value 6" }))
+const useDevField6 = dev(BooleanControl({ name: "Boolean Value [6]" }))
 
 const useDevField7 = dev(
   SelectControl({
-    name: "Test Boolean Value 7",
+    name: "Select Value [7]",
     options: ["Val1", "Val2", "Val3"],
   }),
 )
