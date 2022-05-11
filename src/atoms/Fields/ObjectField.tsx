@@ -46,7 +46,6 @@ export const ObjectField = <
     onChange,
     checked,
     onCheck,
-    error,
     ActionIcon,
     onAction,
   } = props
@@ -59,7 +58,6 @@ export const ObjectField = <
       onCheck={onCheck}
       ActionIcon={ActionIcon}
       onAction={onAction}
-      error={error}
     >
       <Styled.Fields>
         {Object.entries(fields as Record<string, FieldElement<unknown>>).map(
@@ -69,7 +67,6 @@ export const ObjectField = <
               name: field.props.name ?? fieldName,
 
               // Override props
-              error: field.props.error, // TODO: build out error logic / validation
               value: value?.[fieldName as keyof Value],
               onChange: (val: unknown) => {
                 onChange?.({ ...value, [fieldName]: val } as Value)

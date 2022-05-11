@@ -47,7 +47,6 @@ export const ArrayControl = <Value extends unknown, Values extends Value[]>(
 // ---
 
 export const dev = <Value extends unknown>(element: FieldElement<Value>) => {
-  // TODO: this should probably be a symbol?
   // TODO: need to make this persist between hot reloading to prevent doubling
   const id = `TODO-generate-fn-${Math.round(Math.random() * 1000)}`
 
@@ -71,7 +70,6 @@ export const dev = <Value extends unknown>(element: FieldElement<Value>) => {
       onChange: onChange,
       checked: field.activated,
       onCheck: onCheck,
-      error: undefined, // TODO: figure out validation stuff
     })
   })
 

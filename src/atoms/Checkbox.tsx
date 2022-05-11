@@ -32,8 +32,6 @@ type Props = {
 
 const Checkbox = (props: Props) => {
   const { checked, onCheck, className } = props
-
-  // TODO: pull this out into a generic hook for default control if not controlled
   const [innerChecked, setInnerChecked] = React.useState(false)
 
   const _checked = checked ?? innerChecked

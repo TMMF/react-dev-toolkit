@@ -58,7 +58,6 @@ export const ArrayField = <Value extends unknown, Values extends Value[]>(
     onChange,
     checked,
     onCheck,
-    error,
     ActionIcon,
     onAction,
   } = props
@@ -88,7 +87,6 @@ export const ArrayField = <Value extends unknown, Values extends Value[]>(
     [onChange, value],
   )
 
-  const hasError = !!error
   return (
     <Styled.Field
       name={name}
@@ -97,14 +95,12 @@ export const ArrayField = <Value extends unknown, Values extends Value[]>(
       onCheck={onCheck}
       ActionIcon={ActionIcon}
       onAction={onAction}
-      error={error}
     >
       <Styled.Fields ref={ref}>
         {value?.map((_, idx) => {
           return React.cloneElement(field, {
             // Override props
             name: `Index ${idx}`,
-            error: field.props.error, // TODO: build out error logic / validation
             value: value[idx],
             onChange: (val: unknown) => {
               const _value = value ?? []

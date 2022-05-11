@@ -44,7 +44,6 @@ export const SelectField = <Value extends string>(
     onChange,
     checked,
     onCheck,
-    error,
     ActionIcon,
     onAction,
   } = props
@@ -55,7 +54,6 @@ export const SelectField = <Value extends string>(
     [onChange],
   )
 
-  const hasError = !!error
   return (
     <Field
       name={name}
@@ -64,13 +62,8 @@ export const SelectField = <Value extends string>(
       onCheck={onCheck}
       ActionIcon={ActionIcon}
       onAction={onAction}
-      error={error}
     >
-      <Styled.Select
-        value={value ?? ""}
-        onChange={_onChange}
-        $hasError={hasError}
-      >
+      <Styled.Select value={value ?? ""} onChange={_onChange}>
         {options.map((val) => (
           <Styled.Option key={val} value={val}>
             {val}

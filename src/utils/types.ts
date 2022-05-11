@@ -11,15 +11,10 @@ export type DebugState = {
   [key in string]: ControlState<unknown>
 }
 
-// ---
-
 export type FieldProps<Value> = {
-  name?: string // TODO: This should probably be required
+  name?: string
   size?: FieldSize
   defaultValue?: Value
-
-  error?: string
-  // TODO: add default here? or in control?
 
   value?: Value
   onChange?: (value: Value) => void
@@ -31,6 +26,7 @@ export type FieldProps<Value> = {
   // Non-essentials
 
   /*// TODO: build out these functionality
+  // error?: string
   validation?: undefined // yup?
   transform?: (value: unknown) => unknown // transform mocked data to something else for output
   default?: unknown // default value to use instead of `undefined`

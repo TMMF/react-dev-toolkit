@@ -23,7 +23,6 @@ export const StringField = (
     onChange,
     checked,
     onCheck,
-    error,
     ActionIcon,
     onAction,
   } = props
@@ -33,7 +32,6 @@ export const StringField = (
     [onChange],
   )
 
-  const hasError = !!error
   return (
     <Field
       name={name}
@@ -42,13 +40,11 @@ export const StringField = (
       onCheck={onCheck}
       ActionIcon={ActionIcon}
       onAction={onAction}
-      error={error}
     >
       <Styled.Input
         type="text"
         value={value ?? ""}
         onChange={_onChange}
-        $hasError={hasError}
         {...AutocompleteProps}
       />
     </Field>

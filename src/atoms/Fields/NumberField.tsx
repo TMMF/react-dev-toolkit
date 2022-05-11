@@ -33,7 +33,6 @@ export const NumberField = (
     onChange,
     checked,
     onCheck,
-    error,
     ActionIcon,
     onAction,
   } = props
@@ -44,7 +43,6 @@ export const NumberField = (
     [onChange, value],
   )
 
-  const hasError = !!error
   return (
     <Field
       name={name}
@@ -53,13 +51,11 @@ export const NumberField = (
       onCheck={onCheck}
       ActionIcon={ActionIcon}
       onAction={onAction}
-      error={error}
     >
       <Styled.Input
         type="number"
         value={value?.toString() ?? ""}
         onChange={_onChange}
-        $hasError={hasError}
         {...AutocompleteProps}
       />
     </Field>

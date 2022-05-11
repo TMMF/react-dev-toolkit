@@ -46,7 +46,6 @@ export const TupleField = <
     onChange,
     checked,
     onCheck,
-    error,
     ActionIcon,
     onAction,
   } = props
@@ -59,7 +58,6 @@ export const TupleField = <
       onCheck={onCheck}
       ActionIcon={ActionIcon}
       onAction={onAction}
-      error={error}
     >
       <Styled.Fields>
         {fields.map((field, idx) => {
@@ -68,7 +66,6 @@ export const TupleField = <
             name: field.props.name ?? `Index ${idx}`,
 
             // Override props
-            error: field.props.error, // TODO: build out error logic / validation
             value: value?.[idx],
             onChange: (val: unknown) => {
               if (onChange) {

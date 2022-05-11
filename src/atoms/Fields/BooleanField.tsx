@@ -48,7 +48,6 @@ export const BooleanField = (
     onChange,
     checked,
     onCheck,
-    error,
     ActionIcon,
     onAction,
   } = props
@@ -58,7 +57,6 @@ export const BooleanField = (
     [onChange],
   )
 
-  const hasError = !!error
   return (
     <Field
       name={name}
@@ -67,14 +65,12 @@ export const BooleanField = (
       onCheck={onCheck}
       ActionIcon={ActionIcon}
       onAction={onAction}
-      error={error}
     >
       <Styled.Root>
         <Styled.Input
           type="checkbox"
           checked={value ?? false}
           onChange={_onChange}
-          $hasError={hasError}
           {...AutocompleteProps}
         />
         <Styled.Container $checked={value}>
