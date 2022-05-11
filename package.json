@@ -1,12 +1,14 @@
 {
   "name": "react-dev-toolkit",
   "version": "0.1.0",
-  "description": "",
+  "description": "Proof-of-concept realtime mocking tool for React applications",
+  "keywords": [
+    "Mock",
+    "Testing",
+    "React"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
     "compile": "rm -rf dist/ && tsc",
     "verify": "tsc --noEmit",
@@ -18,7 +20,7 @@
     "type": "git",
     "url": "git+https://github.com/TMMF/react-dev-toolkit.git"
   },
-  "author": "Tiago Ferreira <tiago@ferreira.io>",
+  "author": "Tiago Ferreira",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/TMMF/react-dev-toolkit/issues"
