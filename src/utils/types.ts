@@ -22,18 +22,6 @@ export type FieldProps<Value> = {
   onCheck?: (checked: boolean) => void
   ActionIcon?: JSX.Element
   onAction?: () => void
-
-  // Non-essentials
-
-  /*// TODO: build out these functionality
-  // error?: string
-  validation?: undefined // yup?
-  transform?: (value: unknown) => unknown // transform mocked data to something else for output
-  default?: unknown // default value to use instead of `undefined`
-  merge?: boolean // for objects/tuples, merge fields or not
-
-  // TODO: maybe put some of these options inside the control?
-  // placeholder?*/
 }
 
 export type FieldComponent<Value> = React.ComponentType<FieldProps<Value>>
@@ -45,3 +33,22 @@ export type TGetValue<FE> = FE extends FieldElement<infer Value> ? Value : never
 export type TMap<Arr> = Arr extends readonly [infer Head, ...infer Rest]
   ? [TGetValue<Head>, ...TMap<Rest>]
   : []
+
+export type CSSUnit =
+  | "px"
+  | "pt"
+  | "pc"
+  | "in"
+  | "cm"
+  | "mm"
+  | "em"
+  | "ex"
+  | "ch"
+  | "rem"
+  | "vw"
+  | "vh"
+  | "vmin"
+  | "vmax"
+  | "%"
+
+export type CSSMeasure = `${number}${CSSUnit}`

@@ -65,7 +65,6 @@ export const ArrayField = <Value extends unknown, Values extends Value[]>(
   const ref = React.useRef<HTMLDivElement>(null)
 
   const onAdd = React.useCallback(() => {
-    // TODO: this should fill with the default for whatever field passed in
     if (onChange) {
       const _value = value ?? []
       onChange([..._value, ""] as Values)

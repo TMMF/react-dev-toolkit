@@ -47,8 +47,7 @@ export const ArrayControl = <Value extends unknown, Values extends Value[]>(
 // ---
 
 export const dev = <Value extends unknown>(element: FieldElement<Value>) => {
-  // TODO: need to make this persist between hot reloading to prevent doubling
-  const id = `TODO-generate-fn-${Math.round(Math.random() * 1000)}`
+  const id = `dev-control-${Math.round(Math.random() * 1000)}`
 
   const ControlWrapper = React.memo(() => {
     const [field, updateField] = useField(id)
