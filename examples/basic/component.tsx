@@ -62,6 +62,8 @@ const useDevField7 = dev(
     options: ["Val1", "Val2", "Val3"],
   }),
 )
+useDevField7.subscribe(console.log)
+useDevField7.subscribeMocked(console.log)
 
 const Component = () => {
   const value1 = useDevField1("Original Value 1")
@@ -79,6 +81,15 @@ const Component = () => {
   const value8 = useDevField6(false)
   const value9 = useDevField7("Val1")
 
+  const onClickGET = () => {
+    console.log(useDevField7.getValue("Val1"), useDevField7.isMocked())
+  }
+
+  const onClickSET = () => {
+    useDevField7.setValue("Val2")
+    useDevField7.setMocked(true)
+  }
+
   return (
     <>
       <p>Value 1a: {value1}</p>
@@ -90,6 +101,8 @@ const Component = () => {
       <p>Value 6: {JSON.stringify(value7)}</p>
       <p>Value 7: {value8?.toString()}</p>
       <p>Value 8: {value9}</p>
+      <button onClick={onClickGET}>GET VALUE8 IN CONSOLE</button>
+      <button onClick={onClickSET}>SET VALUE8 IN CONSOLE</button>
     </>
   )
 }

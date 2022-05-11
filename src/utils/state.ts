@@ -1,8 +1,9 @@
 import * as React from "react"
 import create from "zustand"
+import { subscribeWithSelector } from "zustand/middleware"
 import { DebugState, ControlState } from "./types"
 
-export const useStore = create<DebugState>(() => ({}))
+export const useStore = create<DebugState>()(subscribeWithSelector(() => ({})))
 
 export const useIds = () => {
   const ids = useStore((state) => Object.keys(state))

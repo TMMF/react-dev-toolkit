@@ -3,8 +3,6 @@ export { default as DevToolkitButton } from "./components/DevToolkitButton"
 export * from "./utils/constants"
 export * from "./utils/controls"
 
-// TODO: define a getter function alongside the hook
-
 /**
  * Non-Proof of Concept Todos / Ideas:
  * - Accessibility: Focus locking with Modals
@@ -34,4 +32,6 @@ export * from "./utils/controls"
  * - Bug: New array elements show use the default value when available
  * - Improvement: Change ID generation logic for `dev(...)`
  * - Improvement: Separate `FieldProps` into essential params and non-essential params
+ * - Improvement: Create JS-Docs for the public functions
+ * - Improvement: Improve documentation and code examples
  */
