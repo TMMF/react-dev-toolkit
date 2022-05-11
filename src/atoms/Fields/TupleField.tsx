@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 import { FieldSize } from "../../utils/constants"
-import { FieldProps, FieldElement } from "../../utils/types"
+import { FieldProps, FieldElement, TMap } from "../../utils/types"
 
 import Field from "./Field"
 
@@ -25,14 +25,18 @@ const Styled = {
   `,
 }
 
-type Array = unknown[]
-interface TupleFieldProps<Value extends Array> extends FieldProps<Value> {
-  // TODO: improve this typing
-  fields: FieldElement<any>[]
+export interface TupleFieldProps<
+  Fields extends readonly FieldElement<any>[],
+  Value extends TMap<Fields>,
+> extends FieldProps<Value> {
+  fields: Fields
 }
 
-export const TupleField = <Value extends Array>(
-  props: TupleFieldProps<Value>,
+export const TupleField = <
+  Fields extends readonly FieldElement<any>[],
+  Value extends TMap<Fields>,
+>(
+  props: TupleFieldProps<Fields, Value>,
 ) => {
   const {
     name,

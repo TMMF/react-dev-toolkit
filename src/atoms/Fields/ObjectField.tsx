@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 import { FieldSize } from "../../utils/constants"
-import { FieldProps, FieldElement } from "../../utils/types"
+import { FieldProps, FieldElement, TGetValue } from "../../utils/types"
 
 import Field from "./Field"
 
@@ -25,14 +25,18 @@ const Styled = {
   `,
 }
 
-type Object = Record<string, unknown>
-interface ObjectFieldProps<Value extends Object> extends FieldProps<Value> {
-  // TODO: improve this typing
-  fields: Record<string, FieldElement<any>>
+export interface ObjectFieldProps<
+  Fields extends { [key in string]?: FieldElement<any> },
+  Value extends { [field in keyof Fields]?: TGetValue<Fields[field]> },
+> extends FieldProps<Value> {
+  fields: Fields
 }
 
-export const ObjectField = <Value extends Object>(
-  props: ObjectFieldProps<Value>,
+export const ObjectField = <
+  Fields extends { [key in string]?: FieldElement<any> },
+  Value extends { [field in keyof Fields]?: TGetValue<Fields[field]> },
+>(
+  props: ObjectFieldProps<Fields, Value>,
 ): FieldElement<Value> => {
   const {
     name,
@@ -58,28 +62,30 @@ export const ObjectField = <Value extends Object>(
       error={error}
     >
       <Styled.Fields>
-        {Object.entries(fields).map(([fieldName, field], idx) => {
-          return React.cloneElement(field, {
-            // Add defaults to props
-            name: field.props.name ?? fieldName,
+        {Object.entries(fields as Record<string, FieldElement<unknown>>).map(
+          ([fieldName, field], idx) => {
+            return React.cloneElement(field, {
+              // Add defaults to props
+              name: field.props.name ?? fieldName,
 
-            // Override props
-            error: field.props.error, // TODO: build out error logic / validation
-            value: value?.[fieldName],
-            onChange: (val: unknown) => {
-              onChange?.({ ...value, [fieldName]: val } as Value)
-            },
+              // Override props
+              error: field.props.error, // TODO: build out error logic / validation
+              value: value?.[fieldName as keyof Value],
+              onChange: (val: unknown) => {
+                onChange?.({ ...value, [fieldName]: val } as Value)
+              },
 
-            // Clear props
-            checked: undefined,
-            onCheck: undefined,
-            ActionIcon: undefined,
-            onAction: undefined,
+              // Clear props
+              checked: undefined,
+              onCheck: undefined,
+              ActionIcon: undefined,
+              onAction: undefined,
 
-            // Add props
-            key: fieldName,
-          })
-        })}
+              // Add props
+              key: fieldName,
+            })
+          },
+        )}
       </Styled.Fields>
     </Field>
   )

@@ -2,79 +2,66 @@ import * as React from "react"
 import {
   dev,
   FieldSize,
-  StringField,
-  NumberField,
-  BooleanField,
-  SelectField,
-  ObjectField,
-  TupleField,
-  ArrayField,
+  StringControl,
+  NumberControl,
+  BooleanControl,
+  SelectControl,
+  ObjectControl,
+  TupleControl,
+  ArrayControl,
 } from "@TMMF/react-dev-toolkit"
 
-// TODO: first fix object / array fields to allow editing
+const useDevField0 = dev(NumberControl({ name: "Test Title Value 3" }))
 
-// TODO: maybe instead have `dev(<StringField />)`. Then all options are just props?
-// dev(<StringField name="Test Title" />)
-// dev(<NumberField name="Test Title" validation={undefined} />)
-// dev(<NumberField name="Test Title" size={FieldSize.Large} />)
-// etc
-// ^ This is better since now the options are not split in two places, but just all within the component
-// props
+const useDevField1 = dev(
+  StringControl({
+    name: "Test Title Value 1",
+    // validation: undefined,
+    defaultValue: "test",
+  }),
+)
 
-const useDevField0 = dev({
-  title: "Test Title Value 3",
-  control: <NumberField />,
-})
+const useDevField2 = dev(
+  StringControl({
+    name: "Test Title Value 2",
+    size: FieldSize.Large,
+  }),
+)
 
-const useDevField1 = dev({
-  title: "Test Title Value 1",
-  control: <StringField />,
-  // validation: undefined,
-})
+const useDevField3 = dev(
+  ObjectControl({
+    name: "Test Object Value 4",
+    fields: {
+      "Field 0": StringControl({ name: "Field 0 (Custom Name)" }),
+      "Field 1": NumberControl(),
+      "Field 2": NumberControl(),
+      "Field 3": StringControl(),
+    },
+  }),
+)
 
-const useDevField2 = dev({
-  title: "Test Title Value 2",
-  control: <StringField />,
-  size: FieldSize.Large,
-})
+const useDevField4 = dev(
+  ArrayControl({ name: "Test Array Value 5", field: StringControl() }),
+)
 
-const useDevField3 = dev({
-  title: "Test Object Value 4",
-  control: (
-    <ObjectField
-      fields={{
-        "Field 0": <StringField name="Field 0 (Custom Name)" />,
-        "Field 1": <NumberField />,
-        "Field 2": <NumberField />,
-        "Field 3": <StringField />,
-      }}
-    />
-  ),
-})
+const useDevField5 = dev(
+  TupleControl({
+    name: "Test Tuple Value 6",
+    fields: [
+      StringControl({ name: "Index 0 (Custom Name)" }),
+      NumberControl(),
+    ] as const,
+  }),
+)
 
-const useDevField4 = dev({
-  title: "Test Array Value 5",
-  control: <ArrayField field={<StringField />} />,
-})
+const useDevField6 = dev(BooleanControl({ name: "Test Boolean Value 7" }))
 
-const useDevField5 = dev({
-  title: "Test Tuple Value 6",
-  control: (
-    <TupleField
-      fields={[<StringField name="Index 0 (Custom Name)" />, <NumberField />]}
-    />
-  ),
-})
-
-const useDevField6 = dev({
-  title: "Test Boolean Value 7",
-  control: <BooleanField />,
-})
-
-const useDevField7 = dev({
-  title: "Test Boolean Value 7",
-  control: <SelectField options={["Val1", "Val2", "Val3"]} />,
-})
+const useDevField7 = dev(
+  SelectControl({
+    name: "Test Boolean Value 7",
+    options: ["Val1", "Val2", "Val3"],
+  }),
+)
 
 const Component = () => {
   const value1 = useDevField1("Original Value 1")
@@ -101,7 +88,7 @@ const Component = () => {
       <p>Value 4: {JSON.stringify(value5)}</p>
       <p>Value 5: {JSON.stringify(value6)}</p>
       <p>Value 6: {JSON.stringify(value7)}</p>
-      <p>Value 7: {value8.toString()}</p>
+      <p>Value 7: {value8?.toString()}</p>
       <p>Value 8: {value9}</p>
     </>
   )

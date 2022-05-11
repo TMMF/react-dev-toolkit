@@ -1,20 +1,6 @@
 import * as React from "react"
 import create from "zustand"
-import { DevControl } from "./controls"
-
-// TODO: move to types file
-export type ControlState<Value extends unknown> = DevControl & {
-  activated: boolean
-  value: Value
-}
-
-type DebugState = {
-  [key in string]: ControlState<unknown>
-}
-
-// ---
-// ---
-// ---
+import { DebugState, ControlState } from "./types"
 
 export const useStore = create<DebugState>(() => ({}))
 

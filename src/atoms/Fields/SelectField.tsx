@@ -28,8 +28,9 @@ const Styled = {
   Option: styled.option``,
 }
 
-interface SelectFieldProps<Value extends string> extends FieldProps<Value> {
-  options: Value[]
+export interface SelectFieldProps<Value extends string>
+  extends FieldProps<Value> {
+  options: readonly Value[]
 }
 
 export const SelectField = <Value extends string>(

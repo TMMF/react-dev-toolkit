@@ -42,7 +42,7 @@ export const Field = (props: Props) => {
       className={className}
     >
       <FieldTitle checked={checked} onCheck={onCheck} hasError={hasError}>
-        {name ?? "[Error - Naming]"}
+        {name ?? "No Name Provided"}
       </FieldTitle>
       {children}
       <FieldError>{error}</FieldError>

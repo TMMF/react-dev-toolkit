@@ -72,7 +72,7 @@ export const BooleanField = (
       <Styled.Root>
         <Styled.Input
           type="checkbox"
-          checked={value}
+          checked={value ?? false}
           onChange={_onChange}
           $hasError={hasError}
           {...AutocompleteProps}

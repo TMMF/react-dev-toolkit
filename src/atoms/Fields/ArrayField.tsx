@@ -42,14 +42,13 @@ const Styled = {
   `,
 }
 
-type Array = unknown[]
-interface ArrayFieldProps<Value extends Array> extends FieldProps<Value> {
-  // TODO: improve this typing
-  field: FieldElement<any>
+export interface ArrayFieldProps<Value extends unknown, Values extends Value[]>
+  extends FieldProps<Values> {
+  field: FieldElement<Value>
 }
 
-export const ArrayField = <Value extends unknown[]>(
-  props: ArrayFieldProps<Value>,
+export const ArrayField = <Value extends unknown, Values extends Value[]>(
+  props: ArrayFieldProps<Value, Values>,
 ) => {
   const {
     name,
@@ -70,7 +69,7 @@ export const ArrayField = <Value extends unknown[]>(
     // TODO: this should fill with the default for whatever field passed in
     if (onChange) {
       const _value = value ?? []
-      onChange([..._value, ""] as Value)
+      onChange([..._value, ""] as Values)
     }
 
     // Place in a timeout to have the render happen before the scrolling
@@ -83,7 +82,7 @@ export const ArrayField = <Value extends unknown[]>(
     (idx: number) => () => {
       if (onChange) {
         const _value = value ?? []
-        onChange([..._value.slice(0, idx), ..._value.slice(idx + 1)] as Value)
+        onChange([..._value.slice(0, idx), ..._value.slice(idx + 1)] as Values)
       }
     },
     [onChange, value],
@@ -113,7 +112,7 @@ export const ArrayField = <Value extends unknown[]>(
                 ..._value.slice(0, idx),
                 val,
                 ..._value.slice(idx + 1),
-              ] as Value)
+              ] as Values)
             },
             ActionIcon: <SquareMinusIcon />,
             onAction: onDelete(idx),
