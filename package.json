@@ -1,27 +1,47 @@
 {
   "name": "react-dev-toolkit",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "version": "0.1.1",
+  "description": "Proof-of-concept realtime mocking tool for React applications",
+  "keywords": [
+    "Mock",
+    "Testing",
+    "React"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "rm -rf dist/ && tsc",
+    "verify": "tsc --noEmit",
+    "example:basic": "parcel --no-cache examples/basic/index.html",
+    "example:comprehensive": "parcel --no-cache examples/comprehensive/index.html",
+    "prepublish": "npm run compile"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TMMF/react-dev-toolkit.git"
   },
-  "author": "Tiago Ferreira <tiago@ferreira.io>",
+  "author": "Tiago Ferreira",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/TMMF/react-dev-toolkit/issues"
   },
   "homepage": "https://github.com/TMMF/react-dev-toolkit#readme",
   "dependencies": {
+    "styled-components": "5.3.5",
+    "zustand": "4.0.0-rc.1"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.5",
+    "@types/react-dom": "18.0.1",
+    "@types/styled-components": "5.1.25",
     "eslint": "8.13.0",
+    "parcel": "2.4.1",
     "prettier": "2.6.2",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
     "typescript": "4.6.3"
+  },
+  "alias": {
+    "react-dev-toolkit": "./src/index.ts"
   }
 }
