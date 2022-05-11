@@ -9,7 +9,7 @@ import {
   ObjectControl,
   TupleControl,
   ArrayControl,
-} from "@TMMF/react-dev-toolkit"
+} from "react-dev-toolkit"
 
 const useDevField0 = dev(NumberControl({ name: "Number Value [0]" }))
 

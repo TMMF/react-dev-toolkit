@@ -1,5 +1,5 @@
 import * as React from "react"
-import { dev, NumberControl, StringControl } from "@TMMF/react-dev-toolkit"
+import { dev, NumberControl, StringControl } from "react-dev-toolkit"
 
 const useDevExampleString = dev(StringControl({ name: "Example String" }))
 const useDevExampleNumber = dev(NumberControl({ name: "Example Number" }))

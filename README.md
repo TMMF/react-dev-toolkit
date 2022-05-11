@@ -16,7 +16,7 @@ this will likely remain a solo project until an production release is created.
 ## Installation
 
 ```bash
-npm install @TMMF/react-dev-toolkit
+npm install react-dev-toolkit
 ```
 
 This package utilizes two main dependencies:
@@ -40,7 +40,7 @@ First, add the `DevToolkitButton` somewhere within your application. Generally
 with the rest of your providers or at the root of your application is best.
 
 ```diff
-+ import { DevToolkitButton } from "@TMMF/react-dev-toolkit"
++ import { DevToolkitButton } from "react-dev-toolkit"
 
 ...
 
@@ -59,7 +59,7 @@ Second, you can begin defining development controls for fields and use them
 directly.
 
 ```diff
-+ import { dev, StringControl } from "@TMMF/react-dev-toolkit"
++ import { dev, StringControl } from "react-dev-toolkit"
 
 + const useDevString = dev(StringControl({ name: "Example String" }))
 

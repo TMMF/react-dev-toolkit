@@ -1,6 +1,6 @@
 {
   "name": "react-dev-toolkit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Proof-of-concept realtime mocking tool for React applications",
   "keywords": [
     "Mock",
@@ -42,6 +42,6 @@
     "typescript": "4.6.3"
   },
   "alias": {
-    "@TMMF/react-dev-toolkit": "./src/index.ts"
+    "react-dev-toolkit": "./src/index.ts"
   }
 }
