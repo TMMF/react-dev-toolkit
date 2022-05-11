@@ -3,37 +3,35 @@ export { default as DevToolkitButton } from "./components/DevToolkitButton"
 export * from "./utils/constants"
 export * from "./utils/controls"
 
-// TODO: Define a utility function for transforming the data from
-
 // TODO: define a getter function alongside the hook
 
-// TODO: accessibility - need to focus lock within the modal
-// TODO: organize standard controls within a separate folder for import (import {...} from "react-dev-toolkit/controls")
-
-// TODO: fix hot-reloading issues where new components pop up
-
-// TODO: create color palettes for light mode + dark mode, allow passing in custom color pallette, allow setting color mode via prop or via ENV variable
-
-// TODO: allow fields to show/hide depending on components? build in watcher functionality to show hide fields dynamically?
-// TODO: build out tabbing? allow better organization of fields?
-
-// TODO: add error messages for data validation
-
-// TODO: change how sizing defaults work; reference equality doesn't work with ObjectControl due to defining new ones always
-
-// TODO: add import / export functionality to save and share mocked data
-// TODO: add functionality to select from pre-existing mocks within a specified folder
-
-// TODO: maybe not for MVP
-/*
-// Each of these is a type on `input` element
-export const DateControl = undefined
-export const TimeControl = undefined
-export const DateTimeControl = undefined
-export const ColorControl = undefined
-export const EmailControl = undefined
-export const TelephoneControl = undefined
-export const UrlControl = undefined
-
-export const UnionControl = undefined
-*/
+/**
+ * Non-Proof of Concept Todos / Ideas:
+ * - Accessibility: Focus locking with Modals
+ * - Accessibility: Focusable Checkboxes
+ * - Accessibility: Aria Labels
+ * - Feature: Auto-Organize fields within Modal (Either alphabetically or for space-efficiency)
+ * - Feature: Build out tabs to allow high-level control grouping
+ * - Feature: Build out field validation (using yup?), pass errors to individual fields
+ * - Feature: Build out color palettes + light/dark modes; allow custom color palettes / color mode via props / env variable
+ * - Feature: Build out transformer function for data output
+ * - Feature: Build out merge property to allow partial data mocking on things like objects
+ * - Feature: Import / Export functionality to share mock data
+ * - Feature: Selector to use data from folder of predefined mocks
+ * - Feature: Tooling to easily create custom controls (either setting params like in UrlControl, or fully new controls); provide util components for field definition
+ * - Feature: More advance Controls/Fields:
+ *   - UnionControl: Union of multiple controls, allow selecting any one of them (this will help power up the ArrayControl)
+ *   - DateControl: Choose a date, date-range, etc in an ISO-format (use transform to change format)
+ *   - TimeControl: Choose a time, time-range, etc in an ISO-format (use transform to change format)
+ *   - DateTimeControl: Choose a datetime, datetime-range, etc in an ISO-format (use transform to change format)
+ *   - ColorControl: Choose a color
+ *   - EmailControl: A StringControl with builtin email data validation
+ *   - TelephoneControl: A StringControl with builtin phone data validation
+ *   - UrlControl: A StringControl with builtin url data validation
+ *   - More Pre-bui
+ * - Bug: Fix hot module replacement (HMR) issues
+ * - Bug: Fix deleting complex fields from ArrayControl (ObjectField, ArrayField, TupleField)
+ * - Bug: New array elements show use the default value when available
+ * - Improvement: Change ID generation logic for `dev(...)`
+ * - Improvement: Separate `FieldProps` into essential params and non-essential params
+ */
