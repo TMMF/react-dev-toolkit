@@ -1,0 +1,8 @@
+
+.parcel-cache/
+.prettierrc
+.vscode/
+src/
+test/
+examples/
+tsconfig.json

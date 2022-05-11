@@ -2,14 +2,17 @@
   "name": "react-dev-toolkit",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "compile": "",
+    "compile": "rm -rf dist/ && tsc",
+    "verify": "tsc --noEmit",
     "example:basic": "parcel --no-cache examples/basic/index.html",
-    "example:comprehensive": "parcel --no-cache examples/comprehensive/index.html"
+    "example:comprehensive": "parcel --no-cache examples/comprehensive/index.html",
+    "prepublish": "npm run compile"
   },
   "repository": {
     "type": "git",

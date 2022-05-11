@@ -88,6 +88,7 @@ code yourself, feel free to do so. The main scripts you'll want to use are:
 
 - `npm run compile` - Compiles the Typescript source code into a Javascript NPM
   package
+- `npm run verify` - Runs type checking
 - `npm publish` - Publishes the Javascript NPM package
 - `npm run example:*` - Runs example applications
   - `npm run example:basic` - Runs a basic example application
