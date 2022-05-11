@@ -82,7 +82,11 @@ const Component = () => {
   const value9 = useDevField7("Val1")
 
   const onClickGET = () => {
-    console.log(useDevField7.getValue("Val1"), useDevField7.isMocked())
+    console.log(
+      useDevField7.getValue(),
+      useDevField7.getValue("Val1"),
+      useDevField7.isMocked(),
+    )
   }
 
   const onClickSET = () => {

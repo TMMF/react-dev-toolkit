@@ -57,7 +57,7 @@ export type SubscribeFn<Value> = (value: Value, prevValue: Value) => void
 export type UnsubscribeFn = () => void
 export type Hook<Value> = (value: Value) => Value | null
 export type Api<Value> = {
-  getValue: (value: Value) => Value | null
+  getValue: (value?: Value) => Value | null
   setValue: (value: Value) => void
   subscribe: (listener: SubscribeFn<Value>) => UnsubscribeFn
   // ---

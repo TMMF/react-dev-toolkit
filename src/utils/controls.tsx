@@ -104,7 +104,7 @@ export const dev = <Value extends unknown>(
   const api: Api<Value> = {
     getValue: (value) => {
       const field = useStore.getState()[id] as ControlState<Value>
-      return field.activated ? field.value : value
+      return field.activated || value === undefined ? field.value : value
     },
     setValue: (value) => {
       useStore.setState((state) => ({
