@@ -5,7 +5,7 @@ import Component from "./Component"
 const Root = () => {
   return (
     <>
-      <Component exampleString="Original Value 1" exampleNumber={45} />
+      <Component />
       <DevToolkitButton />
     </>
   )

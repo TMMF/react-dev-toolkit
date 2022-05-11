@@ -9,6 +9,11 @@ import { ColorMode } from "../utils/constants"
 import { useIds, useField } from "../utils/state"
 
 export const Styled = {
+  Modal: styled(Modal)`
+    width: 50%;
+    max-width: 750px;
+    min-width: 500px;
+  `,
   TitleBar: styled.div`
     display: flex;
     justify-content: space-between;
@@ -50,7 +55,7 @@ const DevModal = (props: Props) => {
   const ColorModeIcon = colorMode === ColorMode.Light ? SunIcon : MoonIcon
 
   return (
-    <Modal>
+    <Styled.Modal>
       <Styled.TitleBar>
         <Styled.Title>Development Toolkit</Styled.Title>
         <Styled.Controls>
@@ -68,7 +73,7 @@ const DevModal = (props: Props) => {
           <DevModalField key={id} id={id} />
         ))}
       </Fields>
-    </Modal>
+    </Styled.Modal>
   )
 }
 

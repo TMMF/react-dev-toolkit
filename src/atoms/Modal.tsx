@@ -27,17 +27,17 @@ const Styled = {
   `,
 }
 
-type Props = { children: React.ReactNode }
+type Props = { children: React.ReactNode; className?: string }
 
 const portalElement = document.createElement("div")
 document.body.insertAdjacentElement("beforeend", portalElement)
 
 const Modal = (props: Props) => {
-  const { children } = props
+  const { children, className } = props
 
   return ReactDOM.createPortal(
     <Styled.Backdrop>
-      <Styled.Modal>{children}</Styled.Modal>
+      <Styled.Modal className={className}>{children}</Styled.Modal>
     </Styled.Backdrop>,
     portalElement,
   )

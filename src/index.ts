@@ -1,4 +1,3 @@
-// export { default as DevToolkitModal } from "./components/DevToolkitModal"
 export { default as DevToolkitButton } from "./components/DevToolkitButton"
 export * from "./utils/constants"
 export * from "./utils/controls"
@@ -34,4 +33,5 @@ export * from "./utils/controls"
  * - Improvement: Separate `FieldProps` into essential params and non-essential params
  * - Improvement: Create JS-Docs for the public functions
  * - Improvement: Improve documentation and code examples
+ * - Improvement: Write tests
  */
