@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components"
-import { FieldSize } from "../../utils/constants"
+import { FieldSize } from "../utils/constants"
 
-import IconButton from "../IconButton"
+import IconButton from "./IconButton"
 
 const fieldCss = css`
   position: relative;

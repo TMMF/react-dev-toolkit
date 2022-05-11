@@ -1,7 +1,7 @@
 import * as React from "react"
 import styled from "styled-components"
 
-import Checkbox from "../Checkbox"
+import Checkbox from "./Checkbox"
 
 const Styled = {
   Checkbox: styled(Checkbox)<{ $hasError?: boolean }>`

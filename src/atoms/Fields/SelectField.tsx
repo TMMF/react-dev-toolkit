@@ -6,7 +6,7 @@ import { FieldProps, FieldElement } from "../../utils/types"
 import { ChevronDownIcon } from "../Icons"
 
 import { ContainerStyle } from "./shared"
-import Field from "./Field"
+import Field from "../Field"
 
 const Styled = {
   Select: styled.select`

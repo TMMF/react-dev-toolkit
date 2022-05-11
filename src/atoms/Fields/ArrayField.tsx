@@ -6,7 +6,7 @@ import { FieldProps, FieldElement } from "../../utils/types"
 import { SquarePlusIcon, SquareMinusIcon } from "../Icons"
 import IconButton from "../IconButton"
 
-import Field from "./Field"
+import Field from "../Field"
 
 const Styled = {
   Field: styled(Field)`

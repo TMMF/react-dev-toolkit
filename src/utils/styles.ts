@@ -14,8 +14,6 @@ const buildBoxShadow = (color: string, base: number = 2) =>
     .map((offset) => `0 ${offset}px ${offset}px ${color}`)
     .join(", ")
 
-// TODO: define 'elevations' instead of using a direct color
-
 export const elevatedContainer = (color: string, base: number = 2) => css`
   box-shadow: ${buildBoxShadow(color, base)};
   border: 1px solid ${color};

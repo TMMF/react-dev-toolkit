@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { FieldSize } from "../../utils/constants"
 import { FieldProps, FieldElement, TGetValue } from "../../utils/types"
 
-import Field from "./Field"
+import Field from "../Field"
 
 const Styled = {
   Fields: styled.div`

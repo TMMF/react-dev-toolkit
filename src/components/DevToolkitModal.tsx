@@ -1,7 +1,7 @@
 import * as React from "react"
 import styled from "styled-components"
 
-import Fields from "../atoms/Fields/Fields"
+import Fields from "../atoms/Fields"
 import Modal from "../atoms/Modal"
 import IconButton from "../atoms/IconButton"
 import { SunIcon, CloseIcon, MoonIcon } from "../atoms/Icons"
@@ -47,9 +47,6 @@ const DevModal = (props: Props) => {
   const { onClose, colorMode, toggleColorMode } = props
   const ids = useIds()
 
-  // TODO: reorder fields based on alphabetical titles?
-  // TODO: reorder fields to match narrow fields together?
-
   const ColorModeIcon = colorMode === ColorMode.Light ? SunIcon : MoonIcon
 
   return (
@@ -57,7 +54,7 @@ const DevModal = (props: Props) => {
       <Styled.TitleBar>
         <Styled.Title>Development Toolkit</Styled.Title>
         <Styled.Controls>
-          <IconButton Icon={<ColorModeIcon />} onClick={toggleColorMode} />
+          {/* <IconButton Icon={<ColorModeIcon />} onClick={toggleColorMode} /> */}
           <IconButton
             Icon={<CloseIcon />}
             onClick={onClose}

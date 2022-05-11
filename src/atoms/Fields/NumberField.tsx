@@ -5,7 +5,7 @@ import { FieldSize } from "../../utils/constants"
 import { FieldProps, FieldElement } from "../../utils/types"
 
 import { ContainerStyle, AutocompleteProps } from "./shared"
-import Field from "./Field"
+import Field from "../Field"
 
 const Styled = {
   Input: styled.input`

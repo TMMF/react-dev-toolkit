@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { FieldSize } from "../../utils/constants"
+import { FieldSize } from "../utils/constants"
 
 import FieldContainer from "./FieldContainer"
 import FieldTitle from "./FieldTitle"
