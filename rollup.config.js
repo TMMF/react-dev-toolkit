@@ -1,6 +1,6 @@
 import typescript from "rollup-plugin-typescript2"
 import babel from "@rollup/plugin-babel"
-import { terser } from "rollup-plugin-terser"
+import dts from "rollup-plugin-dts"
 import pkg from "./package.json"
 
 export default [
@@ -14,6 +14,11 @@ export default [
     plugins: [
       typescript({
         typescript: require("typescript"),
+        tsconfigOverride: {
+          compilerOptions: {
+            declaration: false,
+          },
+        },
       }),
       babel({ extensions: [".ts"], babelHelpers: "bundled" }),
     ],
@@ -38,18 +43,24 @@ export default [
         "react-dom": "ReactDOM",
         "react/jsx-runtime": "jsxRuntime",
         "styled-components": "styled",
+        zustand: "zustand",
+        "zustand/middleware": "zustandMiddleware",
       },
     },
     plugins: [
       typescript({
         typescript: require("typescript"),
+        tsconfigOverride: {
+          compilerOptions: {
+            declaration: false,
+          },
+        },
       }),
       babel({
         extensions: [".ts"],
         exclude: "node_modules/**",
         babelHelpers: "bundled",
       }),
-      terser(),
     ],
     external: [
       ...Object.keys(pkg.dependencies || {}),
@@ -57,5 +68,12 @@ export default [
       "react/jsx-runtime",
       "zustand/middleware",
     ],
+  },
+
+  // Type Declarations
+  {
+    input: "src/index.ts",
+    output: [{ file: pkg.types, format: "es" }],
+    plugins: [dts()],
   },
 ]
