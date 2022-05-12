@@ -1,19 +1,23 @@
 {
   "name": "react-dev-toolkit",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Proof-of-concept realtime mocking tool for React applications",
   "keywords": [
     "Mock",
     "Testing",
     "React"
   ],
-  "main": "dist/index.js",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "compile": "rm -rf dist/ && tsc",
+    "compile": "rm -rf dist/ && rollup -c",
     "verify": "tsc --noEmit",
-    "example:basic": "parcel --no-cache examples/basic/index.html",
-    "example:comprehensive": "parcel --no-cache examples/comprehensive/index.html",
+    "example:basic": "parcel --no-cache --dist-dir .parcel-dist/ examples/basic/index.html",
+    "example:comprehensive": "parcel --no-cache --dist-dir .parcel-dist/ examples/comprehensive/index.html",
     "prepublish": "npm run compile"
   },
   "repository": {
@@ -30,18 +34,26 @@
     "styled-components": "5.3.5",
     "zustand": "4.0.0-rc.1"
   },
+  "peerDependencies": {
+    "react": "18.x",
+    "react-dom": "18.x"
+  },
   "devDependencies": {
+    "@babel/core": "7.17.10",
+    "@babel/preset-env": "7.17.10",
+    "@rollup/plugin-babel": "5.3.1",
     "@types/react": "18.0.5",
     "@types/react-dom": "18.0.1",
     "@types/styled-components": "5.1.25",
     "eslint": "8.13.0",
     "parcel": "2.4.1",
     "prettier": "2.6.2",
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
+    "rollup": "2.72.1",
+    "rollup-plugin-dts": "4.2.1",
+    "rollup-plugin-typescript2": "0.31.2",
     "typescript": "4.6.3"
   },
   "alias": {
-    "react-dev-toolkit": "./src/index.ts"
+    "react-dev-toolkit": "./dist/index.es.js"
   }
 }

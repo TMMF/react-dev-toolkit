@@ -1,5 +1,6 @@
 
 .parcel-cache/
+.parcel-dist/
 .prettierrc
 .vscode/
 src/
